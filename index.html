@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>El Duque Trans | Premium Autotransport België ↔ Spanje & Portugal</title>
-    <meta name="description" content="België's #1 autotransport naar Spanje en Portugal. 250+ voertuigen per maand. Luxewagens, oldtimers, motoren. Persoonlijke Belgische service met de zon als bestemming.">
+    <meta name="description" content="België's #1 autotransport naar Spanje en Portugal. 250+ voertuigen per maand. Luxewagens, oldtimers, motoren. Persoonlijke Belgische service.">
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -14,37 +14,20 @@
                 extend: {
                     colors: {
                         navy: {
-                            50: '#f0f4f8',
-                            100: '#d9e2ec',
-                            200: '#bcccdc',
-                            300: '#9fb3c8',
-                            400: '#829ab1',
-                            500: '#627d98',
-                            600: '#486581',
-                            700: '#334e68',
-                            800: '#243b53',
-                            900: '#102a43',
-                            950: '#0a1929',
+                            800: '#1e3a5f',
+                            900: '#0f2744',
+                            950: '#091a2e',
+                        },
+                        azure: {
+                            400: '#4da6ff',
+                            500: '#2196f3',
+                            600: '#1976d2',
                         },
                         sun: {
-                            50: '#fffbeb',
-                            100: '#fef3c7',
-                            200: '#fde68a',
-                            300: '#fcd34d',
-                            400: '#fbbf24',
-                            500: '#f59e0b',
-                            600: '#d97706',
-                            700: '#b45309',
-                        },
-                        ocean: {
-                            400: '#38bdf8',
-                            500: '#0ea5e9',
-                            600: '#0284c7',
+                            400: '#ffb347',
+                            500: '#ff9800',
+                            600: '#f57c00',
                         }
-                    },
-                    fontFamily: {
-                        'display': ['Playfair Display', 'serif'],
-                        'body': ['Inter', 'sans-serif'],
                     }
                 }
             }
@@ -54,997 +37,587 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
     
-    <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     
-    <!-- GSAP for Professional Animations -->
+    <!-- GSAP -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     
-    <!-- CountUp.js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/countup.js/2.8.0/countUp.umd.min.js"></script>
-    
-    <!-- Swiper for Carousels -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <!-- Particles.js -->
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
     
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Poppins', sans-serif;
+            background: #091a2e;
+            color: white;
             overflow-x: hidden;
         }
         
-        .font-display {
-            font-family: 'Playfair Display', serif;
-        }
+        .font-display { font-family: 'Playfair Display', serif; }
         
-        /* ===== LOADING SCREEN ===== */
-        .loader {
+        /* ===== LOADER ===== */
+        #loader {
             position: fixed;
             inset: 0;
-            background: linear-gradient(135deg, #0a1929 0%, #102a43 50%, #1a365d 100%);
+            background: linear-gradient(135deg, #091a2e 0%, #0f2744 100%);
             z-index: 9999;
             display: flex;
             align-items: center;
             justify-content: center;
-            flex-direction: column;
-            gap: 2rem;
+            transition: opacity 0.5s, visibility 0.5s;
         }
+        #loader.hidden { opacity: 0; visibility: hidden; }
         
         .loader-car {
             width: 120px;
             animation: drive 1.5s ease-in-out infinite;
         }
-        
         @keyframes drive {
             0%, 100% { transform: translateX(-20px) rotate(-2deg); }
             50% { transform: translateX(20px) rotate(2deg); }
         }
         
-        .loader-road {
-            width: 200px;
-            height: 4px;
-            background: rgba(255,255,255,0.2);
-            border-radius: 2px;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .loader-road::after {
-            content: '';
+        /* ===== HERO BACKGROUND ===== */
+        #particles-js {
             position: absolute;
-            width: 50%;
-            height: 100%;
-            background: linear-gradient(90deg, #f59e0b, #fbbf24);
-            animation: roadMove 1s linear infinite;
+            inset: 0;
+            z-index: 1;
         }
         
-        @keyframes roadMove {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(300%); }
-        }
-        
-        .loader.hidden {
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.5s ease;
-        }
-        
-        /* ===== ANIMATED GRADIENT BACKGROUND ===== */
         .hero-gradient {
-            background: linear-gradient(-45deg, #0a1929, #102a43, #1a365d, #0f172a);
-            background-size: 400% 400%;
-            animation: gradientShift 15s ease infinite;
+            background: linear-gradient(135deg, 
+                #091a2e 0%, 
+                #0f2744 30%, 
+                #1e3a5f 60%,
+                #2c5282 80%,
+                #1e3a5f 100%);
             position: relative;
         }
         
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-        
-        /* Spanish Sunset Overlay */
-        .sunset-overlay {
-            position: absolute;
-            inset: 0;
-            background: 
-                radial-gradient(ellipse at 80% 20%, rgba(251, 191, 36, 0.15) 0%, transparent 50%),
-                radial-gradient(ellipse at 20% 80%, rgba(245, 158, 11, 0.1) 0%, transparent 50%),
-                radial-gradient(ellipse at 50% 100%, rgba(217, 119, 6, 0.2) 0%, transparent 40%);
-            pointer-events: none;
-        }
-        
-        /* Floating Orbs */
-        .orb {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(60px);
-            opacity: 0.4;
-            animation: float 20s ease-in-out infinite;
-        }
-        
-        .orb-1 {
-            width: 400px;
-            height: 400px;
-            background: linear-gradient(135deg, #f59e0b, #fbbf24);
-            top: -100px;
-            right: -100px;
-            animation-delay: 0s;
-        }
-        
-        .orb-2 {
-            width: 300px;
-            height: 300px;
-            background: linear-gradient(135deg, #0ea5e9, #38bdf8);
-            bottom: -50px;
-            left: -50px;
-            animation-delay: -5s;
-        }
-        
-        .orb-3 {
-            width: 200px;
-            height: 200px;
-            background: linear-gradient(135deg, #fbbf24, #f59e0b);
-            top: 50%;
-            left: 30%;
-            animation-delay: -10s;
-        }
-        
-        @keyframes float {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            25% { transform: translate(30px, -30px) scale(1.1); }
-            50% { transform: translate(-20px, 20px) scale(0.9); }
-            75% { transform: translate(20px, 10px) scale(1.05); }
-        }
-        
-        /* ===== TEXT ANIMATIONS ===== */
-        .text-reveal {
-            clip-path: inset(0 100% 0 0);
-            animation: textReveal 1s ease forwards;
-        }
-        
-        @keyframes textReveal {
-            to { clip-path: inset(0 0 0 0); }
-        }
-        
-        .char {
-            display: inline-block;
-            opacity: 0;
-            transform: translateY(50px) rotate(10deg);
-        }
-        
-        /* ===== GRADIENT TEXT ===== */
-        .text-gradient-sun {
-            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 50%, #d97706 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        .text-gradient-ocean {
-            background: linear-gradient(135deg, #38bdf8 0%, #0ea5e9 50%, #0284c7 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        /* ===== 3D CARD EFFECTS ===== */
-        .card-3d {
-            transform-style: preserve-3d;
-            transition: transform 0.5s ease, box-shadow 0.5s ease;
-        }
-        
-        .card-3d:hover {
-            transform: perspective(1000px) rotateX(5deg) rotateY(-5deg) translateZ(20px);
-            box-shadow: 
-                20px 20px 60px rgba(16, 42, 67, 0.3),
-                -5px -5px 20px rgba(255, 255, 255, 0.05);
-        }
-        
-        /* ===== GLOW EFFECTS ===== */
-        .glow-sun {
-            box-shadow: 
-                0 0 20px rgba(251, 191, 36, 0.4),
-                0 0 40px rgba(245, 158, 11, 0.2),
-                0 0 60px rgba(217, 119, 6, 0.1);
-        }
-        
-        .glow-sun-hover:hover {
-            box-shadow: 
-                0 0 30px rgba(251, 191, 36, 0.6),
-                0 0 60px rgba(245, 158, 11, 0.4),
-                0 0 90px rgba(217, 119, 6, 0.2);
-        }
-        
-        /* ===== PULSE ANIMATION ===== */
-        .pulse-glow {
-            animation: pulseGlow 2s ease-in-out infinite;
-        }
-        
-        @keyframes pulseGlow {
-            0%, 100% { 
-                box-shadow: 0 0 20px rgba(251, 191, 36, 0.4);
-                transform: scale(1);
-            }
-            50% { 
-                box-shadow: 0 0 40px rgba(251, 191, 36, 0.6), 0 0 60px rgba(245, 158, 11, 0.3);
-                transform: scale(1.02);
-            }
-        }
-        
-        /* ===== FLOATING ANIMATION ===== */
-        .float-slow {
-            animation: floatSlow 6s ease-in-out infinite;
-        }
-        
-        .float-medium {
-            animation: floatMedium 4s ease-in-out infinite;
-        }
-        
-        @keyframes floatSlow {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(2deg); }
-        }
-        
-        @keyframes floatMedium {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-15px); }
-        }
-        
-        /* ===== ROUTE ANIMATION ===== */
-        .route-path {
-            stroke-dasharray: 1000;
-            stroke-dashoffset: 1000;
-        }
-        
-        .route-path.animate {
-            animation: drawRoute 3s ease forwards;
-        }
-        
-        @keyframes drawRoute {
-            to { stroke-dashoffset: 0; }
-        }
-        
-        .car-icon {
-            offset-path: path('M 50 150 Q 200 50 400 100 T 750 80');
-            animation: drivePath 4s ease-in-out infinite;
-        }
-        
-        @keyframes drivePath {
-            0% { offset-distance: 0%; }
-            100% { offset-distance: 100%; }
-        }
-        
-        /* ===== PARALLAX LAYERS ===== */
-        .parallax-layer {
-            will-change: transform;
-        }
-        
-        /* ===== SCROLL REVEAL ===== */
-        .reveal {
-            opacity: 0;
-            transform: translateY(60px);
-            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        .reveal-left {
-            opacity: 0;
-            transform: translateX(-60px);
-            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        
-        .reveal-left.active {
-            opacity: 1;
-            transform: translateX(0);
-        }
-        
-        .reveal-right {
-            opacity: 0;
-            transform: translateX(60px);
-            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        
-        .reveal-right.active {
-            opacity: 1;
-            transform: translateX(0);
-        }
-        
-        /* ===== COUNTER STYLING ===== */
-        .counter-box {
-            background: rgba(255,255,255,0.05);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.1);
-            transition: all 0.4s ease;
-        }
-        
-        .counter-box:hover {
-            background: rgba(255,255,255,0.1);
-            border-color: rgba(251, 191, 36, 0.3);
-            transform: translateY(-5px);
-        }
-        
-        /* ===== SERVICE CARDS ===== */
-        .service-card {
-            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .service-card::before {
+        .hero-gradient::after {
             content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, rgba(251, 191, 36, 0.1) 0%, transparent 50%);
-            opacity: 0;
-            transition: opacity 0.4s ease;
-        }
-        
-        .service-card:hover::before {
-            opacity: 1;
-        }
-        
-        .service-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: 
-                0 25px 50px rgba(16, 42, 67, 0.15),
-                0 10px 20px rgba(16, 42, 67, 0.1);
-        }
-        
-        .service-icon {
-            transition: all 0.4s ease;
-        }
-        
-        .service-card:hover .service-icon {
-            transform: scale(1.1) rotate(-5deg);
-            box-shadow: 0 10px 30px rgba(251, 191, 36, 0.3);
-        }
-        
-        /* ===== IMAGE REVEAL ===== */
-        .image-reveal {
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .image-reveal::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, #102a43, #1a365d);
-            transform: scaleX(1);
-            transform-origin: right;
-            transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        
-        .image-reveal.revealed::after {
-            transform: scaleX(0);
-        }
-        
-        /* ===== TESTIMONIAL CARDS ===== */
-        .testimonial-card {
-            background: linear-gradient(135deg, rgba(16, 42, 67, 0.03) 0%, rgba(16, 42, 67, 0.08) 100%);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(16, 42, 67, 0.1);
-            transition: all 0.4s ease;
-        }
-        
-        .testimonial-card:hover {
-            transform: translateY(-5px);
-            border-color: rgba(251, 191, 36, 0.3);
-            box-shadow: 0 20px 40px rgba(16, 42, 67, 0.1);
-        }
-        
-        /* ===== CTA BUTTON ===== */
-        .cta-btn {
-            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 50%, #d97706 100%);
-            background-size: 200% 200%;
-            animation: gradientBtn 3s ease infinite;
-            transition: all 0.3s ease;
-        }
-        
-        .cta-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 30px rgba(245, 158, 11, 0.4);
-        }
-        
-        @keyframes gradientBtn {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-        
-        /* ===== WHATSAPP BUTTON ===== */
-        .whatsapp-btn {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 60px;
-            height: 60px;
-            background: #25D366;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 5px 20px rgba(37, 211, 102, 0.4);
-            z-index: 1000;
-            transition: all 0.3s ease;
-            animation: whatsappPulse 2s ease-in-out infinite;
-        }
-        
-        .whatsapp-btn:hover {
-            transform: scale(1.1);
-            box-shadow: 0 10px 30px rgba(37, 211, 102, 0.6);
-        }
-        
-        @keyframes whatsappPulse {
-            0%, 100% { box-shadow: 0 5px 20px rgba(37, 211, 102, 0.4); }
-            50% { box-shadow: 0 5px 20px rgba(37, 211, 102, 0.4), 0 0 0 15px rgba(37, 211, 102, 0.1); }
-        }
-        
-        /* ===== BEACH WAVE DIVIDER ===== */
-        .wave-divider {
             position: absolute;
             bottom: 0;
             left: 0;
-            width: 100%;
-            overflow: hidden;
-            line-height: 0;
+            right: 0;
+            height: 40%;
+            background: linear-gradient(to top, 
+                rgba(255, 152, 0, 0.15) 0%,
+                transparent 100%);
+            pointer-events: none;
         }
         
-        .wave-divider svg {
+        /* ===== GLOWING TEXT ===== */
+        .glow-text {
+            text-shadow: 0 0 40px rgba(33, 150, 243, 0.5),
+                         0 0 80px rgba(33, 150, 243, 0.3);
+        }
+        
+        .glow-orange {
+            text-shadow: 0 0 40px rgba(255, 152, 0, 0.6),
+                         0 0 80px rgba(255, 152, 0, 0.3);
+        }
+        
+        /* ===== ANIMATED GRADIENT BORDER ===== */
+        .gradient-border {
             position: relative;
-            display: block;
-            width: calc(100% + 1.3px);
+            background: linear-gradient(135deg, #0f2744 0%, #1e3a5f 100%);
+            border-radius: 1rem;
+        }
+        .gradient-border::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            background: linear-gradient(135deg, #2196f3, #ff9800, #2196f3);
+            border-radius: 1rem;
+            z-index: -1;
+            animation: borderGlow 3s linear infinite;
+            background-size: 200% 200%;
+        }
+        @keyframes borderGlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        /* ===== FLOATING ANIMATION ===== */
+        .float {
+            animation: float 6s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        /* ===== CAR ANIMATION ===== */
+        .car-drive {
+            animation: carMove 20s linear infinite;
+        }
+        @keyframes carMove {
+            0% { transform: translateX(-100%) rotate(0deg); }
+            45% { transform: translateX(50vw) rotate(0deg); }
+            50% { transform: translateX(50vw) rotate(0deg); }
+            55% { transform: translateX(50vw) rotate(0deg); }
+            100% { transform: translateX(150vw) rotate(0deg); }
+        }
+        
+        /* ===== WAVE ANIMATION ===== */
+        .wave {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 200%;
             height: 100px;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 100"><path fill="%23091a2e" d="M0,50 C360,100 1080,0 1440,50 L1440,100 L0,100 Z"/></svg>');
+            background-size: 50% 100%;
+            animation: wave 10s linear infinite;
         }
-        
-        /* ===== NAV GLASS EFFECT ===== */
-        .nav-glass {
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(16, 42, 67, 0.1);
-        }
-        
-        .nav-glass.scrolled {
-            box-shadow: 0 10px 30px rgba(16, 42, 67, 0.1);
-        }
-        
-        /* ===== FAQ ACCORDION ===== */
-        .faq-item {
-            border-radius: 16px;
-            overflow: hidden;
-            transition: all 0.3s ease;
-        }
-        
-        .faq-item:hover {
-            box-shadow: 0 10px 30px rgba(16, 42, 67, 0.1);
-        }
-        
-        .faq-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.4s ease;
-        }
-        
-        .faq-content.open {
-            max-height: 300px;
-        }
-        
-        .faq-icon {
-            transition: transform 0.3s ease;
-        }
-        
-        .faq-icon.open {
-            transform: rotate(180deg);
-        }
-        
-        /* ===== FORM STYLING ===== */
-        .form-input {
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
-        }
-        
-        .form-input:focus {
-            border-color: #f59e0b;
-            box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.1);
-        }
-        
-        /* ===== MARQUEE ===== */
-        .marquee {
-            overflow: hidden;
-            white-space: nowrap;
-        }
-        
-        .marquee-content {
-            display: inline-flex;
-            animation: marquee 30s linear infinite;
-        }
-        
-        @keyframes marquee {
+        @keyframes wave {
             0% { transform: translateX(0); }
             100% { transform: translateX(-50%); }
         }
         
-        /* ===== CUSTOM SCROLLBAR ===== */
-        ::-webkit-scrollbar {
-            width: 10px;
+        /* ===== BUTTON EFFECTS ===== */
+        .btn-glow {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        .btn-glow::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            transform: rotate(45deg);
+            transition: all 0.5s ease;
+        }
+        .btn-glow:hover::before {
+            left: 100%;
+        }
+        .btn-glow:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 40px rgba(33, 150, 243, 0.4);
         }
         
-        ::-webkit-scrollbar-track {
-            background: #f1f5f9;
+        /* ===== CARD HOVER ===== */
+        .card-3d {
+            transition: all 0.4s ease;
+            transform-style: preserve-3d;
+        }
+        .card-3d:hover {
+            transform: translateY(-10px) rotateX(5deg);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.3);
         }
         
-        ::-webkit-scrollbar-thumb {
-            background: linear-gradient(135deg, #102a43, #1a365d);
-            border-radius: 5px;
+        /* ===== COUNTER ANIMATION ===== */
+        .counter {
+            font-variant-numeric: tabular-nums;
         }
         
-        ::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(135deg, #1a365d, #243b53);
+        /* ===== ROUTE MAP ===== */
+        .route-line {
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            animation: drawLine 3s ease forwards;
+        }
+        @keyframes drawLine {
+            to { stroke-dashoffset: 0; }
+        }
+        
+        .pulse-dot {
+            animation: pulse 2s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.5); opacity: 0.5; }
+        }
+        
+        /* ===== TESTIMONIAL CARD ===== */
+        .testimonial-card {
+            background: linear-gradient(135deg, rgba(30, 58, 95, 0.8) 0%, rgba(15, 39, 68, 0.9) 100%);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(33, 150, 243, 0.2);
+        }
+        
+        /* ===== SPAIN VIBES OVERLAY ===== */
+        .spain-overlay {
+            background: linear-gradient(180deg,
+                transparent 0%,
+                rgba(255, 152, 0, 0.05) 50%,
+                rgba(255, 87, 34, 0.1) 100%);
+        }
+        
+        /* ===== SCROLL INDICATOR ===== */
+        .scroll-indicator {
+            animation: bounce 2s infinite;
+        }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0) translateX(-50%); }
+            40% { transform: translateY(-15px) translateX(-50%); }
+            60% { transform: translateY(-7px) translateX(-50%); }
+        }
+        
+        /* ===== WHATSAPP BUTTON ===== */
+        .whatsapp-btn {
+            animation: whatsappPulse 2s infinite;
+        }
+        @keyframes whatsappPulse {
+            0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.5); }
+            70% { box-shadow: 0 0 0 20px rgba(37, 211, 102, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+        }
+        
+        /* ===== SUN RAYS ===== */
+        .sun-rays {
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(255,152,0,0.15) 0%, transparent 70%);
+            animation: sunPulse 8s ease-in-out infinite;
+        }
+        @keyframes sunPulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.2); opacity: 0.8; }
         }
     </style>
 </head>
-<body class="font-body text-navy-900 bg-white antialiased">
-    
-    <!-- LOADING SCREEN -->
-    <div class="loader" id="loader">
-        <svg class="loader-car" viewBox="0 0 100 40" fill="none">
-            <rect x="15" y="15" width="70" height="20" rx="8" fill="#f59e0b"/>
-            <rect x="25" y="8" width="35" height="15" rx="4" fill="#fbbf24"/>
-            <circle cx="25" cy="35" r="6" fill="#1a365d"/>
-            <circle cx="75" cy="35" r="6" fill="#1a365d"/>
-            <circle cx="25" cy="35" r="3" fill="#64748b"/>
-            <circle cx="75" cy="35" r="3" fill="#64748b"/>
-        </svg>
-        <div class="loader-road"></div>
-        <p class="text-white/60 text-sm tracking-widest uppercase">El Duque Trans</p>
-    </div>
-
-    <!-- TOP BAR -->
-    <div class="bg-navy-950 text-white py-2.5 px-4 text-sm relative z-50">
-        <div class="container mx-auto flex flex-wrap justify-between items-center">
-            <div class="flex items-center gap-6">
-                <a href="tel:+34600000000" class="flex items-center gap-2 hover:text-sun-400 transition-colors group">
-                    <i data-lucide="phone" class="w-4 h-4 group-hover:animate-bounce"></i>
-                    <span class="hidden sm:inline">+34 600 000 000</span>
-                </a>
-                <a href="https://wa.me/34600000000" class="flex items-center gap-2 hover:text-green-400 transition-colors group">
-                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-                    <span class="hidden sm:inline">WhatsApp</span>
-                </a>
-            </div>
-            <div class="flex items-center gap-3 text-sm">
-                <span class="hidden md:inline text-navy-400">🌍</span>
-                <button class="hover:text-sun-400 transition-colors font-medium" data-lang="nl">NL</button>
-                <span class="text-navy-600">|</span>
-                <button class="hover:text-sun-400 transition-colors" data-lang="fr">FR</button>
-                <span class="text-navy-600">|</span>
-                <button class="hover:text-sun-400 transition-colors" data-lang="en">EN</button>
-                <span class="text-navy-600">|</span>
-                <button class="hover:text-sun-400 transition-colors" data-lang="es">ES</button>
-            </div>
+<body>
+    <!-- LOADER -->
+    <div id="loader">
+        <div class="text-center">
+            <svg class="loader-car" viewBox="0 0 100 50" fill="none">
+                <rect x="10" y="20" width="60" height="20" rx="5" fill="#2196f3"/>
+                <rect x="25" y="10" width="30" height="15" rx="3" fill="#1976d2"/>
+                <circle cx="25" cy="40" r="8" fill="#333"/>
+                <circle cx="25" cy="40" r="4" fill="#666"/>
+                <circle cx="55" cy="40" r="8" fill="#333"/>
+                <circle cx="55" cy="40" r="4" fill="#666"/>
+                <rect x="70" y="25" width="15" height="8" rx="2" fill="#ff9800"/>
+            </svg>
+            <p class="mt-4 text-azure-400 font-medium">Laden...</p>
         </div>
     </div>
+
+    <!-- WHATSAPP FLOATING BUTTON -->
+    <a href="https://wa.me/32470123456" target="_blank" 
+       class="whatsapp-btn fixed bottom-6 right-6 z-50 w-16 h-16 bg-green-500 rounded-full flex items-center justify-center shadow-lg hover:bg-green-600 transition-all">
+        <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+        </svg>
+    </a>
 
     <!-- NAVIGATION -->
-    <nav class="nav-glass sticky top-0 z-50 transition-all duration-300" id="navbar">
-        <div class="container mx-auto px-4">
-            <div class="flex items-center justify-between h-20">
-                <!-- Logo -->
-                <a href="#" class="flex items-center gap-3 group">
-                    <div class="w-12 h-12 bg-gradient-to-br from-navy-800 to-navy-950 rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-shadow overflow-hidden relative">
-                        <span class="text-sun-400 font-display font-bold text-xl relative z-10">ED</span>
-                        <div class="absolute inset-0 bg-gradient-to-tr from-sun-500/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                    </div>
-                    <div class="hidden sm:block">
-                        <div class="font-display font-bold text-xl text-navy-900">El Duque Trans</div>
-                        <div class="text-xs text-navy-500 tracking-wider uppercase">Premium Car Transport</div>
-                    </div>
-                </a>
-                
-                <!-- Desktop Menu -->
-                <div class="hidden lg:flex items-center gap-8">
-                    <a href="#diensten" class="text-navy-600 hover:text-navy-900 font-medium transition-colors relative group">
-                        Diensten
-                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-sun-500 transition-all group-hover:w-full"></span>
-                    </a>
-                    <a href="#routes" class="text-navy-600 hover:text-navy-900 font-medium transition-colors relative group">
-                        Routes
-                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-sun-500 transition-all group-hover:w-full"></span>
-                    </a>
-                    <a href="#hoe-het-werkt" class="text-navy-600 hover:text-navy-900 font-medium transition-colors relative group">
-                        Hoe het werkt
-                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-sun-500 transition-all group-hover:w-full"></span>
-                    </a>
-                    <a href="#reviews" class="text-navy-600 hover:text-navy-900 font-medium transition-colors relative group">
-                        Reviews
-                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-sun-500 transition-all group-hover:w-full"></span>
-                    </a>
-                    <a href="#contact" class="cta-btn text-navy-900 px-6 py-3 rounded-full font-semibold shadow-lg flex items-center gap-2">
-                        <i data-lucide="sparkles" class="w-4 h-4"></i>
-                        Gratis Offerte
-                    </a>
+    <nav class="fixed top-0 left-0 right-0 z-40 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+            <a href="#" class="flex items-center gap-3">
+                <div class="w-12 h-12 bg-gradient-to-br from-azure-500 to-azure-600 rounded-xl flex items-center justify-center">
+                    <span class="text-2xl font-bold">ED</span>
                 </div>
-                
-                <!-- Mobile Menu Button -->
-                <button class="lg:hidden p-2 hover:bg-navy-100 rounded-lg transition-colors" id="mobile-menu-btn">
-                    <i data-lucide="menu" class="w-6 h-6"></i>
-                </button>
-            </div>
-        </div>
-        
-        <!-- Mobile Menu -->
-        <div class="lg:hidden hidden bg-white border-t border-navy-100" id="mobile-menu">
-            <div class="container mx-auto px-4 py-4 space-y-4">
-                <a href="#diensten" class="block text-navy-700 hover:text-navy-900 font-medium py-2">Diensten</a>
-                <a href="#routes" class="block text-navy-700 hover:text-navy-900 font-medium py-2">Routes</a>
-                <a href="#hoe-het-werkt" class="block text-navy-700 hover:text-navy-900 font-medium py-2">Hoe het werkt</a>
-                <a href="#reviews" class="block text-navy-700 hover:text-navy-900 font-medium py-2">Reviews</a>
-                <a href="#contact" class="block cta-btn text-navy-900 px-6 py-3 rounded-full font-semibold text-center">
-                    Gratis Offerte
+                <div class="hidden sm:block">
+                    <div class="font-bold text-lg">El Duque Trans</div>
+                    <div class="text-xs text-azure-400">Premium Autotransport</div>
+                </div>
+            </a>
+            
+            <div class="hidden md:flex items-center gap-8">
+                <a href="#diensten" class="hover:text-azure-400 transition-colors">Diensten</a>
+                <a href="#hoe-werkt-het" class="hover:text-azure-400 transition-colors">Hoe werkt het</a>
+                <a href="#reviews" class="hover:text-azure-400 transition-colors">Reviews</a>
+                <a href="#contact" class="btn-glow bg-gradient-to-r from-azure-500 to-azure-600 px-6 py-2.5 rounded-full font-semibold">
+                    Offerte Aanvragen
                 </a>
             </div>
         </div>
     </nav>
 
-    <!-- ===== HERO SECTION ===== -->
+    <!-- HERO SECTION -->
     <section class="hero-gradient min-h-screen flex items-center relative overflow-hidden">
-        <!-- Animated Orbs -->
-        <div class="orb orb-1"></div>
-        <div class="orb orb-2"></div>
-        <div class="orb orb-3"></div>
+        <div id="particles-js"></div>
+        <div class="sun-rays"></div>
         
-        <!-- Sunset Overlay -->
-        <div class="sunset-overlay"></div>
+        <!-- Animated Car -->
+        <div class="absolute bottom-32 left-0 car-drive opacity-20">
+            <svg width="200" height="80" viewBox="0 0 200 80" fill="none">
+                <rect x="20" y="30" width="120" height="35" rx="8" fill="#2196f3"/>
+                <rect x="50" y="10" width="60" height="25" rx="5" fill="#1976d2"/>
+                <circle cx="50" cy="65" r="12" fill="#333"/>
+                <circle cx="50" cy="65" r="6" fill="#555"/>
+                <circle cx="110" cy="65" r="12" fill="#333"/>
+                <circle cx="110" cy="65" r="6" fill="#555"/>
+                <rect x="140" y="38" width="30" height="12" rx="3" fill="#ff9800"/>
+            </svg>
+        </div>
         
-        <!-- Floating Decorative Elements -->
-        <div class="absolute top-20 left-10 w-20 h-20 border border-white/10 rounded-2xl float-slow hidden lg:block"></div>
-        <div class="absolute bottom-40 right-20 w-16 h-16 border border-sun-500/20 rounded-full float-medium hidden lg:block"></div>
-        <div class="absolute top-1/3 right-1/4 w-3 h-3 bg-sun-400 rounded-full float-slow hidden lg:block"></div>
-        
-        <div class="container mx-auto px-4 py-20 relative z-10">
+        <div class="max-w-7xl mx-auto px-6 relative z-10 pt-20">
             <div class="grid lg:grid-cols-2 gap-12 items-center">
-                <!-- Left Content -->
-                <div class="hero-content">
-                    <!-- Live Status Badge -->
-                    <div class="inline-flex items-center gap-3 bg-white/10 backdrop-blur-md rounded-full px-5 py-2.5 mb-8 border border-white/10">
-                        <span class="relative flex h-3 w-3">
-                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                            <span class="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
-                        </span>
-                        <span class="text-white/90 text-sm font-medium">Volgende vertrek: Woensdag</span>
-                        <span class="text-sun-400 text-sm">→ Spanje</span>
+                <div>
+                    <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur px-4 py-2 rounded-full mb-6" data-aos="fade-down">
+                        <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+                        <span class="text-sm">België's #1 Autotransport</span>
                     </div>
                     
-                    <h1 class="font-display text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white leading-tight mb-6 hero-title">
-                        <span class="block">Uw auto.</span>
-                        <span class="block">De Spaanse</span>
-                        <span class="text-gradient-sun">zon wacht.</span>
+                    <h1 class="text-5xl md:text-7xl font-bold leading-tight mb-6" data-aos="fade-up" data-aos-delay="100">
+                        <span class="glow-text">Jouw auto.</span><br>
+                        <span class="text-azure-400">Jouw vrijheid.</span><br>
+                        <span class="glow-orange text-sun-400">Spanje wacht.</span>
                     </h1>
                     
-                    <p class="text-xl md:text-2xl text-navy-200 mb-10 max-w-xl hero-subtitle leading-relaxed">
-                        Vlieg comfortabel. Uw auto staat klaar in 
-                        <span class="text-sun-400 font-semibold">Spanje</span> of 
-                        <span class="text-sun-400 font-semibold">Portugal</span>.
-                        <br class="hidden md:block">
-                        <span class="text-white/70">Premium transport, Belgische service.</span>
+                    <p class="text-xl text-gray-300 mb-8 max-w-lg" data-aos="fade-up" data-aos-delay="200">
+                        Droom je van de Spaanse zon? Wij brengen je auto veilig naar je vakantiebestemming terwijl jij ontspannen vliegt. 
+                        <span class="text-azure-400 font-semibold">Simpel. Veilig. Snel.</span>
                     </p>
                     
-                    <!-- CTA Buttons -->
-                    <div class="flex flex-col sm:flex-row gap-4 mb-16 hero-cta">
-                        <a href="#contact" class="cta-btn pulse-glow text-navy-900 px-8 py-4 rounded-full font-semibold text-lg flex items-center justify-center gap-3 group">
-                            <i data-lucide="sparkles" class="w-5 h-5 group-hover:rotate-12 transition-transform"></i>
-                            Gratis Offerte in 24u
-                            <i data-lucide="arrow-right" class="w-5 h-5 group-hover:translate-x-1 transition-transform"></i>
+                    <div class="flex flex-wrap gap-4 mb-12" data-aos="fade-up" data-aos-delay="300">
+                        <a href="#contact" class="btn-glow bg-gradient-to-r from-sun-500 to-sun-600 text-navy-950 px-8 py-4 rounded-full font-bold text-lg flex items-center gap-2">
+                            <span>Gratis Offerte</span>
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                            </svg>
                         </a>
-                        <a href="https://wa.me/34600000000" class="bg-white/10 backdrop-blur-md text-white border border-white/20 px-8 py-4 rounded-full font-semibold text-lg hover:bg-white/20 transition-all flex items-center justify-center gap-3 group">
-                            <svg class="w-5 h-5 text-green-400" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-                            Direct Contact
+                        <a href="tel:+32470123456" class="btn-glow bg-white/10 backdrop-blur px-8 py-4 rounded-full font-semibold flex items-center gap-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                            </svg>
+                            <span>Bel Ons</span>
                         </a>
                     </div>
                     
-                    <!-- Stats Counters -->
-                    <div class="grid grid-cols-3 gap-4 hero-stats">
-                        <div class="counter-box rounded-2xl p-4 text-center">
-                            <div class="text-3xl md:text-4xl font-bold text-sun-400 counter" data-target="250">0</div>
-                            <div class="text-sm text-navy-300 mt-1">Voertuigen/maand</div>
+                    <!-- Stats -->
+                    <div class="grid grid-cols-3 gap-6" data-aos="fade-up" data-aos-delay="400">
+                        <div class="text-center">
+                            <div class="text-4xl font-bold text-azure-400 counter" data-target="250">0</div>
+                            <div class="text-sm text-gray-400">Auto's per maand</div>
                         </div>
-                        <div class="counter-box rounded-2xl p-4 text-center">
-                            <div class="text-3xl md:text-4xl font-bold text-sun-400 counter" data-target="15">0</div>
-                            <div class="text-sm text-navy-300 mt-1">Jaar ervaring</div>
+                        <div class="text-center">
+                            <div class="text-4xl font-bold text-sun-400 counter" data-target="15">0</div>
+                            <div class="text-sm text-gray-400">Jaar ervaring</div>
                         </div>
-                        <div class="counter-box rounded-2xl p-4 text-center">
-                            <div class="text-3xl md:text-4xl font-bold text-sun-400">
-                                <span class="counter" data-target="100">0</span>%
-                            </div>
-                            <div class="text-sm text-navy-300 mt-1">Verzekerd</div>
+                        <div class="text-center">
+                            <div class="text-4xl font-bold text-green-400 counter" data-target="98">0</div>
+                            <div class="text-sm text-gray-400">% Tevreden</div>
                         </div>
                     </div>
                 </div>
                 
-                <!-- Right Content - Hero Image -->
-                <div class="relative hero-image lg:block">
-                    <div class="relative z-10">
-                        <!-- Main Image Container -->
-                        <div class="relative rounded-3xl overflow-hidden shadow-2xl float-slow">
-                            <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=800&q=80" 
-                                 alt="Luxe auto transport naar Spanje" 
-                                 class="w-full h-[500px] object-cover">
-                            <!-- Gradient Overlay -->
-                            <div class="absolute inset-0 bg-gradient-to-t from-navy-900/60 via-transparent to-transparent"></div>
-                            <div class="absolute inset-0 bg-gradient-to-r from-navy-900/30 to-transparent"></div>
+                <!-- Hero Image/Visual -->
+                <div class="relative" data-aos="fade-left" data-aos-delay="300">
+                    <div class="float">
+                        <div class="gradient-border p-1 rounded-2xl">
+                            <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=400&fit=crop" 
+                                 alt="Autotransport naar Spanje" 
+                                 class="rounded-2xl w-full">
                         </div>
-                        
-                        <!-- Floating Cards -->
-                        <div class="absolute -bottom-6 -left-6 bg-white rounded-2xl shadow-2xl p-5 flex items-center gap-4 float-medium z-20">
-                            <div class="w-14 h-14 bg-gradient-to-br from-green-400 to-green-600 rounded-xl flex items-center justify-center shadow-lg">
-                                <i data-lucide="shield-check" class="w-7 h-7 text-white"></i>
+                    </div>
+                    
+                    <!-- Floating badge -->
+                    <div class="absolute -bottom-6 -left-6 bg-gradient-to-br from-azure-500 to-azure-600 p-4 rounded-2xl shadow-xl" data-aos="zoom-in" data-aos-delay="500">
+                        <div class="flex items-center gap-3">
+                            <div class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                                </svg>
                             </div>
                             <div>
-                                <div class="font-bold text-navy-900">100% Verzekerd</div>
-                                <div class="text-sm text-navy-500">CMR Transport</div>
+                                <div class="font-bold">100% Verzekerd</div>
+                                <div class="text-sm text-white/70">Volledige dekking</div>
                             </div>
                         </div>
-                        
-                        <div class="absolute -top-4 -right-4 bg-navy-900 rounded-2xl shadow-2xl p-4 float-slow z-20">
-                            <div class="flex items-center gap-3">
-                                <span class="text-3xl">🇧🇪</span>
-                                <div class="flex items-center gap-1">
-                                    <div class="w-8 h-0.5 bg-sun-500 rounded"></div>
-                                    <i data-lucide="plane" class="w-4 h-4 text-sun-400"></i>
-                                    <div class="w-8 h-0.5 bg-sun-500 rounded"></div>
-                                </div>
-                                <span class="text-3xl">🇪🇸</span>
-                            </div>
-                            <div class="text-white/80 text-sm text-center mt-2">3-5 werkdagen</div>
-                        </div>
-                        
-                        <!-- Destination Tag -->
-                        <div class="absolute bottom-20 right-4 bg-white/90 backdrop-blur-sm rounded-full px-4 py-2 shadow-lg">
-                            <span class="text-sm font-medium text-navy-900">☀️ Costa del Sol</span>
+                    </div>
+                    
+                    <!-- Spain flag badge -->
+                    <div class="absolute -top-4 -right-4 bg-white p-3 rounded-xl shadow-xl" data-aos="zoom-in" data-aos-delay="600">
+                        <div class="flex items-center gap-2">
+                            <span class="text-2xl">🇪🇸</span>
+                            <span class="text-2xl">🇵🇹</span>
+                            <span class="text-2xl">🇧🇪</span>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         
-        <!-- Wave Divider -->
-        <div class="wave-divider">
-            <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
-                <path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" 
-                      fill="#ffffff" opacity=".25"></path>
-                <path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" 
-                      fill="#ffffff" opacity=".5"></path>
-                <path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,googletag172.46-45.71,248.8-84.81V0Z" 
-                      fill="#ffffff"></path>
+        <!-- Scroll indicator -->
+        <div class="scroll-indicator absolute bottom-8 left-1/2 text-azure-400">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
             </svg>
         </div>
     </section>
 
-    <!-- ===== TRUST MARQUEE ===== -->
-    <section class="py-6 bg-navy-50 border-y border-navy-100 overflow-hidden">
-        <div class="marquee">
-            <div class="marquee-content flex items-center gap-12">
-                <span class="flex items-center gap-2 text-navy-600 font-medium whitespace-nowrap">
-                    <i data-lucide="check-circle" class="w-5 h-5 text-green-500"></i> Volledig verzekerd transport
-                </span>
-                <span class="flex items-center gap-2 text-navy-600 font-medium whitespace-nowrap">
-                    <i data-lucide="clock" class="w-5 h-5 text-sun-500"></i> Levering in 3-5 werkdagen
-                </span>
-                <span class="flex items-center gap-2 text-navy-600 font-medium whitespace-nowrap">
-                    <i data-lucide="map-pin" class="w-5 h-5 text-ocean-500"></i> Ophaling in heel België
-                </span>
-                <span class="flex items-center gap-2 text-navy-600 font-medium whitespace-nowrap">
-                    <i data-lucide="star" class="w-5 h-5 text-sun-500"></i> 15+ jaar ervaring
-                </span>
-                <span class="flex items-center gap-2 text-navy-600 font-medium whitespace-nowrap">
-                    <i data-lucide="car" class="w-5 h-5 text-navy-500"></i> 250+ voertuigen per maand
-                </span>
-                <span class="flex items-center gap-2 text-navy-600 font-medium whitespace-nowrap">
-                    <i data-lucide="phone" class="w-5 h-5 text-green-500"></i> Persoonlijke Belgische service
-                </span>
-                <!-- Duplicate for seamless loop -->
-                <span class="flex items-center gap-2 text-navy-600 font-medium whitespace-nowrap">
-                    <i data-lucide="check-circle" class="w-5 h-5 text-green-500"></i> Volledig verzekerd transport
-                </span>
-                <span class="flex items-center gap-2 text-navy-600 font-medium whitespace-nowrap">
-                    <i data-lucide="clock" class="w-5 h-5 text-sun-500"></i> Levering in 3-5 werkdagen
-                </span>
-                <span class="flex items-center gap-2 text-navy-600 font-medium whitespace-nowrap">
-                    <i data-lucide="map-pin" class="w-5 h-5 text-ocean-500"></i> Ophaling in heel België
-                </span>
-                <span class="flex items-center gap-2 text-navy-600 font-medium whitespace-nowrap">
-                    <i data-lucide="star" class="w-5 h-5 text-sun-500"></i> 15+ jaar ervaring
-                </span>
-                <span class="flex items-center gap-2 text-navy-600 font-medium whitespace-nowrap">
-                    <i data-lucide="car" class="w-5 h-5 text-navy-500"></i> 250+ voertuigen per maand
-                </span>
-                <span class="flex items-center gap-2 text-navy-600 font-medium whitespace-nowrap">
-                    <i data-lucide="phone" class="w-5 h-5 text-green-500"></i> Persoonlijke Belgische service
-                </span>
+    <!-- ROUTE MAP SECTION -->
+    <section class="py-24 bg-navy-950 relative overflow-hidden">
+        <div class="absolute inset-0 spain-overlay"></div>
+        
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4" data-aos="fade-up">
+                    Van <span class="text-azure-400">België</span> naar de <span class="text-sun-400">Zon</span>
+                </h2>
+                <p class="text-xl text-gray-400" data-aos="fade-up" data-aos-delay="100">
+                    Wekelijkse transporten naar heel Spanje en Portugal
+                </p>
+            </div>
+            
+            <!-- Simple Route Visualization -->
+            <div class="relative max-w-4xl mx-auto" data-aos="fade-up" data-aos-delay="200">
+                <svg viewBox="0 0 800 300" class="w-full">
+                    <!-- Route line -->
+                    <path class="route-line" d="M 100 80 Q 400 150 700 200" stroke="url(#routeGradient)" stroke-width="4" fill="none"/>
+                    
+                    <!-- Gradient definition -->
+                    <defs>
+                        <linearGradient id="routeGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" style="stop-color:#2196f3"/>
+                            <stop offset="100%" style="stop-color:#ff9800"/>
+                        </linearGradient>
+                    </defs>
+                    
+                    <!-- Belgium -->
+                    <circle cx="100" cy="80" r="15" fill="#2196f3" class="pulse-dot"/>
+                    <text x="100" y="50" text-anchor="middle" fill="white" font-size="14" font-weight="bold">🇧🇪 België</text>
+                    
+                    <!-- Spain -->
+                    <circle cx="600" cy="180" r="15" fill="#ff9800" class="pulse-dot"/>
+                    <text x="600" y="220" text-anchor="middle" fill="white" font-size="14" font-weight="bold">🇪🇸 Spanje</text>
+                    
+                    <!-- Portugal -->
+                    <circle cx="700" cy="200" r="12" fill="#ff9800" class="pulse-dot"/>
+                    <text x="700" y="240" text-anchor="middle" fill="white" font-size="14" font-weight="bold">🇵🇹 Portugal</text>
+                    
+                    <!-- Moving car -->
+                    <g class="car-icon" style="animation: moveCar 8s linear infinite;">
+                        <circle cx="300" cy="120" r="20" fill="#2196f3" opacity="0.3"/>
+                        <text x="300" y="125" text-anchor="middle" font-size="20">🚗</text>
+                    </g>
+                </svg>
+                
+                <style>
+                    @keyframes moveCar {
+                        0% { transform: translate(0, 0); }
+                        100% { transform: translate(400px, 80px); }
+                    }
+                </style>
+            </div>
+            
+            <!-- Destinations -->
+            <div class="grid md:grid-cols-4 gap-6 mt-16">
+                <div class="text-center p-6 bg-white/5 rounded-2xl backdrop-blur" data-aos="fade-up" data-aos-delay="100">
+                    <div class="text-3xl mb-2">☀️</div>
+                    <h3 class="font-bold text-lg">Costa del Sol</h3>
+                    <p class="text-gray-400 text-sm">Málaga, Marbella</p>
+                </div>
+                <div class="text-center p-6 bg-white/5 rounded-2xl backdrop-blur" data-aos="fade-up" data-aos-delay="200">
+                    <div class="text-3xl mb-2">🏖️</div>
+                    <h3 class="font-bold text-lg">Costa Blanca</h3>
+                    <p class="text-gray-400 text-sm">Alicante, Benidorm</p>
+                </div>
+                <div class="text-center p-6 bg-white/5 rounded-2xl backdrop-blur" data-aos="fade-up" data-aos-delay="300">
+                    <div class="text-3xl mb-2">🌴</div>
+                    <h3 class="font-bold text-lg">Barcelona</h3>
+                    <p class="text-gray-400 text-sm">Costa Brava</p>
+                </div>
+                <div class="text-center p-6 bg-white/5 rounded-2xl backdrop-blur" data-aos="fade-up" data-aos-delay="400">
+                    <div class="text-3xl mb-2">🇵🇹</div>
+                    <h3 class="font-bold text-lg">Algarve</h3>
+                    <p class="text-gray-400 text-sm">Faro, Lagos</p>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- ===== SERVICES SECTION ===== -->
-    <section id="diensten" class="py-24 bg-white relative">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-16 reveal">
-                <span class="inline-flex items-center gap-2 bg-sun-100 text-sun-700 px-4 py-2 rounded-full text-sm font-semibold mb-4">
-                    <i data-lucide="star" class="w-4 h-4"></i>
-                    Onze Specialiteiten
-                </span>
-                <h2 class="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-navy-900 mb-6">
-                    Wat wij <span class="text-gradient-sun">transporteren</span>
+    <!-- SERVICES SECTION -->
+    <section id="diensten" class="py-24 bg-gradient-to-b from-navy-950 to-navy-900">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4" data-aos="fade-up">
+                    Onze <span class="text-azure-400">Premium</span> Diensten
                 </h2>
-                <p class="text-xl text-navy-600 max-w-2xl mx-auto">
-                    Van luxewagens tot oldtimers, motoren tot boten – wij zorgen voor veilig transport naar uw Spaanse of Portugese droombestemming.
+                <p class="text-xl text-gray-400 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="100">
+                    Van luxewagens tot oldtimers, wij transporteren elk voertuig met de grootste zorg
                 </p>
             </div>
             
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="grid md:grid-cols-3 gap-8">
                 <!-- Service 1 -->
-                <div class="service-card card-3d rounded-3xl p-8 reveal" style="transition-delay: 0.1s">
-                    <div class="service-icon w-16 h-16 bg-gradient-to-br from-navy-800 to-navy-950 rounded-2xl flex items-center justify-center mb-6">
-                        <i data-lucide="car" class="w-8 h-8 text-sun-400"></i>
+                <div class="card-3d gradient-border p-8" data-aos="fade-up" data-aos-delay="100">
+                    <div class="w-16 h-16 bg-gradient-to-br from-azure-500 to-azure-600 rounded-2xl flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
                     </div>
-                    <h3 class="font-display text-2xl font-bold text-navy-900 mb-3">Personenwagens</h3>
-                    <p class="text-navy-600 mb-6">
-                        Alle merken welkom. Van compacte stadsauto tot ruime gezinswagen – veilig en verzekerd naar het zuiden.
+                    <h3 class="text-2xl font-bold mb-3">Particulier Transport</h3>
+                    <p class="text-gray-400 mb-4">
+                        Perfect voor vakantiegangers en expats. Vlieg ontspannen terwijl wij je auto veilig afleveren.
                     </p>
-                    <ul class="space-y-3">
-                        <li class="flex items-center gap-3 text-navy-700">
-                            <div class="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center">
-                                <i data-lucide="check" class="w-4 h-4 text-green-600"></i>
-                            </div>
-                            Open & gesloten transport
+                    <ul class="space-y-2 text-sm text-gray-300">
+                        <li class="flex items-center gap-2">
+                            <span class="text-green-400">✓</span> Deur-tot-deur service
                         </li>
-                        <li class="flex items-center gap-3 text-navy-700">
-                            <div class="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center">
-                                <i data-lucide="check" class="w-4 h-4 text-green-600"></i>
-                            </div>
-                            Wekelijkse vertrekken
+                        <li class="flex items-center gap-2">
+                            <span class="text-green-400">✓</span> Volledige verzekering
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <span class="text-green-400">✓</span> Real-time tracking
                         </li>
                     </ul>
                 </div>
                 
                 <!-- Service 2 -->
-                <div class="service-card card-3d rounded-3xl p-8 reveal" style="transition-delay: 0.2s">
-                    <div class="service-icon w-16 h-16 bg-gradient-to-br from-navy-800 to-navy-950 rounded-2xl flex items-center justify-center mb-6">
-                        <i data-lucide="gem" class="w-8 h-8 text-sun-400"></i>
+                <div class="card-3d gradient-border p-8" data-aos="fade-up" data-aos-delay="200">
+                    <div class="w-16 h-16 bg-gradient-to-br from-sun-500 to-sun-600 rounded-2xl flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-navy-950" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/>
+                        </svg>
                     </div>
-                    <h3 class="font-display text-2xl font-bold text-navy-900 mb-3">Luxe & Supercars</h3>
-                    <p class="text-navy-600 mb-6">
-                        Porsche, Ferrari, Lamborghini, Mercedes AMG – met de grootste zorg behandeld in gesloten transport.
+                    <h3 class="text-2xl font-bold mb-3">Luxe & Oldtimers</h3>
+                    <p class="text-gray-400 mb-4">
+                        Speciale behandeling voor bijzondere voertuigen. Enclosed transport beschikbaar.
                     </p>
-                    <ul class="space-y-3">
-                        <li class="flex items-center gap-3 text-navy-700">
-                            <div class="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center">
-                                <i data-lucide="check" class="w-4 h-4 text-green-600"></i>
-                            </div>
-                            White glove service
+                    <ul class="space-y-2 text-sm text-gray-300">
+                        <li class="flex items-center gap-2">
+                            <span class="text-green-400">✓</span> Enclosed trailers
                         </li>
-                        <li class="flex items-center gap-3 text-navy-700">
-                            <div class="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center">
-                                <i data-lucide="check" class="w-4 h-4 text-green-600"></i>
-                            </div>
-                            Extra verzekering mogelijk
+                        <li class="flex items-center gap-2">
+                            <span class="text-green-400">✓</span> Extra verzekering
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <span class="text-green-400">✓</span> Handschoenen service
                         </li>
                     </ul>
                 </div>
                 
                 <!-- Service 3 -->
-                <div class="service-card card-3d rounded-3xl p-8 reveal" style="transition-delay: 0.3s">
-                    <div class="service-icon w-16 h-16 bg-gradient-to-br from-navy-800 to-navy-950 rounded-2xl flex items-center justify-center mb-6">
-                        <i data-lucide="timer" class="w-8 h-8 text-sun-400"></i>
-                    </div>
-                    <h3 class="font-display text-2xl font-bold text-navy-900 mb-3">Oldtimers & Classics</h3>
-                    <p class="text-navy-600 mb-6">
-                        Uw klassieke schoonheid verdient speciale aandacht. 15+ jaar ervaring met vintage voertuigen.
-                    </p>
-                    <ul class="space-y-3">
-                        <li class="flex items-center gap-3 text-navy-700">
-                            <div class="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center">
-                                <i data-lucide="check" class="w-4 h-4 text-green-600"></i>
-                            </div>
-                            Rally & evenement transport
-                        </li>
-                        <li class="flex items-center gap-3 text-navy-700">
-                            <div class="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center">
-                                <i data-lucide="check" class="w-4 h-4 text-green-600"></i>
-                            </div>
-                            Gesloten beschermd transport
-                        </li>
-                    </ul>
-                </div>
-                
-                <!-- Service 4 -->
-                <div class="service-card card-3d rounded-3xl p-8 reveal" style="transition-delay: 0.4s">
-                    <div class="service-icon w-16 h-16 bg-gradient-to-br from-navy-800 to-navy-950 rounded-2xl flex items-center justify-center mb-6">
-                        <svg class="w-8 h-8 text-sun-400" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                <div class="card-3d gradient-border p-8" data-aos="fade-up" data-aos-delay="300">
+                    <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
                         </svg>
                     </div>
-                    <h3 class="font-display text-2xl font-bold text-navy-900 mb-3">Motoren & Scooters</h3>
-                    <p class="text-navy-600 mb-6">
-                        Uw motor veilig vervoerd met professionele bevestigingssystemen speciaal voor tweewielers.
+                    <h3 class="text-2xl font-bold mb-3">Dealers & Bedrijven</h3>
+                    <p class="text-gray-400 mb-4">
+                        Regelmatige transporten voor autobedrijven. Volume kortingen beschikbaar.
                     </p>
-                    <ul class="space-y-3">
-                        <li class="flex items-center gap-3 text-navy-700">
-                            <div class="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center">
-                                <i data-lucide="check" class="w-4 h-4 text-green-600"></i>
-                            </div>
-                            Professionele bevestiging
+                    <ul class="space-y-2 text-sm text-gray-300">
+                        <li class="flex items-center gap-2">
+                            <span class="text-green-400">✓</span> Wekelijkse ritten
                         </li>
-                        <li class="flex items-center gap-3 text-navy-700">
-                            <div class="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center">
-                                <i data-lucide="check" class="w-4 h-4 text-green-600"></i>
-                            </div>
-                            Alle merken & types
+                        <li class="flex items-center gap-2">
+                            <span class="text-green-400">✓</span> B2B tarieven
                         </li>
-                    </ul>
-                </div>
-                
-                <!-- Service 5 -->
-                <div class="service-card card-3d rounded-3xl p-8 reveal" style="transition-delay: 0.5s">
-                    <div class="service-icon w-16 h-16 bg-gradient-to-br from-navy-800 to-navy-950 rounded-2xl flex items-center justify-center mb-6">
-                        <i data-lucide="anchor" class="w-8 h-8 text-sun-400"></i>
-                    </div>
-                    <h3 class="font-display text-2xl font-bold text-navy-900 mb-3">Boten & Jetski's</h3>
-                    <p class="text-navy-600 mb-6">
-                        Speedboten, jetski's en kleine vaartuigen naar de Spaanse kust. Tot 8 meter lengte.
-                    </p>
-                    <ul class="space-y-3">
-                        <li class="flex items-center gap-3 text-navy-700">
-                            <div class="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center">
-                                <i data-lucide="check" class="w-4 h-4 text-green-600"></i>
-                            </div>
-                            Met of zonder trailer
-                        </li>
-                        <li class="flex items-center gap-3 text-navy-700">
-                            <div class="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center">
-                                <i data-lucide="check" class="w-4 h-4 text-green-600"></i>
-                            </div>
-                            Mediterrane dromen
-                        </li>
-                    </ul>
-                </div>
-                
-                <!-- Service 6 -->
-                <div class="service-card card-3d rounded-3xl p-8 reveal" style="transition-delay: 0.6s">
-                    <div class="service-icon w-16 h-16 bg-gradient-to-br from-navy-800 to-navy-950 rounded-2xl flex items-center justify-center mb-6">
-                        <i data-lucide="truck" class="w-8 h-8 text-sun-400"></i>
-                    </div>
-                    <h3 class="font-display text-2xl font-bold text-navy-900 mb-3">Speciaal Transport</h3>
-                    <p class="text-navy-600 mb-6">
-                        Golfkarretjes, buggy's, quads, campers – voor speciale voertuigen vinden wij een oplossing.
-                    </p>
-                    <ul class="space-y-3">
-                        <li class="flex items-center gap-3 text-navy-700">
-                            <div class="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center">
-                                <i data-lucide="check" class="w-4 h-4 text-green-600"></i>
-                            </div>
-                            Op maat oplossingen
-                        </li>
-                        <li class="flex items-center gap-3 text-navy-700">
-                            <div class="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center">
-                                <i data-lucide="check" class="w-4 h-4 text-green-600"></i>
-                            </div>
-                            Nieuwe heavy-duty truck
+                        <li class="flex items-center gap-2">
+                            <span class="text-green-400">✓</span> Factuur achteraf
                         </li>
                     </ul>
                 </div>
@@ -1052,930 +625,336 @@
         </div>
     </section>
 
-    <!-- ===== ROUTE MAP SECTION ===== -->
-    <section id="routes" class="py-24 bg-gradient-to-br from-navy-900 via-navy-800 to-navy-900 relative overflow-hidden">
-        <!-- Background Elements -->
-        <div class="absolute inset-0 opacity-20">
-            <div class="absolute top-0 left-1/4 w-96 h-96 bg-sun-500 rounded-full blur-[150px]"></div>
-            <div class="absolute bottom-0 right-1/4 w-72 h-72 bg-ocean-500 rounded-full blur-[120px]"></div>
-        </div>
+    <!-- HOW IT WORKS -->
+    <section id="hoe-werkt-het" class="py-24 bg-navy-900 relative overflow-hidden">
+        <div class="sun-rays" style="top: auto; bottom: -50%; left: -20%; right: auto;"></div>
         
-        <div class="container mx-auto px-4 relative z-10">
-            <div class="text-center mb-16 reveal">
-                <span class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm text-white px-4 py-2 rounded-full text-sm font-semibold mb-4">
-                    <i data-lucide="map" class="w-4 h-4"></i>
-                    Onze Routes
-                </span>
-                <h2 class="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
-                    Van België naar de <span class="text-gradient-sun">zon</span>
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4" data-aos="fade-up">
+                    Zo <span class="text-azure-400">Simpel</span> Werkt Het
                 </h2>
-                <p class="text-xl text-navy-200 max-w-2xl mx-auto">
-                    Regelmatige ritten naar heel Spanje en Portugal. Uw voertuig in goede handen.
+                <p class="text-xl text-gray-400" data-aos="fade-up" data-aos-delay="100">
+                    In 4 stappen je auto in Spanje
                 </p>
             </div>
             
-            <div class="grid lg:grid-cols-2 gap-12 items-center">
-                <!-- Animated Route Map -->
-                <div class="reveal-left">
-                    <div class="relative bg-white/5 backdrop-blur-md rounded-3xl p-8 border border-white/10">
-                        <!-- Route SVG -->
-                        <svg viewBox="0 0 800 400" class="w-full h-auto">
-                            <!-- Background -->
-                            <defs>
-                                <linearGradient id="routeGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                                    <stop offset="0%" style="stop-color:#fbbf24"/>
-                                    <stop offset="100%" style="stop-color:#f59e0b"/>
-                                </linearGradient>
-                                <filter id="glow">
-                                    <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
-                                    <feMerge>
-                                        <feMergeNode in="coloredBlur"/>
-                                        <feMergeNode in="SourceGraphic"/>
-                                    </feMerge>
-                                </filter>
-                            </defs>
-                            
-                            <!-- Europe simplified shapes -->
-                            <path d="M300 50 L400 30 L500 60 L550 120 L500 200 L450 250 L400 280 L300 300 L200 250 L150 180 L180 100 Z" 
-                                  fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.2)" stroke-width="2"/>
-                            
-                            <!-- Iberian Peninsula -->
-                            <path d="M100 200 L200 180 L250 220 L230 320 L150 350 L80 300 Z" 
-                                  fill="rgba(251,191,36,0.2)" stroke="rgba(251,191,36,0.4)" stroke-width="2"/>
-                            
-                            <!-- Route Line -->
-                            <path class="route-path" d="M350 100 C300 150 250 180 200 250" 
-                                  stroke="url(#routeGradient)" stroke-width="4" fill="none" 
-                                  stroke-linecap="round" filter="url(#glow)"/>
-                            
-                            <!-- Belgium Point -->
-                            <circle cx="350" cy="100" r="12" fill="#fbbf24" class="pulse-glow"/>
-                            <text x="370" y="90" fill="white" font-size="14" font-weight="600">🇧🇪 België</text>
-                            
-                            <!-- Spain Point -->
-                            <circle cx="200" cy="250" r="12" fill="#f59e0b" class="pulse-glow"/>
-                            <text x="220" y="240" fill="white" font-size="14" font-weight="600">🇪🇸 Spanje</text>
-                            
-                            <!-- Portugal Point -->
-                            <circle cx="120" cy="280" r="8" fill="#d97706"/>
-                            <text x="80" y="310" fill="white" font-size="12">🇵🇹 Portugal</text>
-                            
-                            <!-- Animated Car -->
-                            <g class="car-icon">
-                                <rect x="-15" y="-8" width="30" height="16" rx="4" fill="#fbbf24"/>
-                                <circle cx="-8" cy="8" r="4" fill="#1a365d"/>
-                                <circle cx="8" cy="8" r="4" fill="#1a365d"/>
-                            </g>
-                        </svg>
-                        
-                        <!-- Info Cards -->
-                        <div class="grid grid-cols-2 gap-4 mt-8">
-                            <div class="bg-white/10 backdrop-blur-sm rounded-xl p-4">
-                                <h4 class="font-semibold text-white mb-2 flex items-center gap-2">
-                                    <i data-lucide="map-pin" class="w-4 h-4 text-sun-400"></i>
-                                    Ophalen
-                                </h4>
-                                <ul class="text-sm text-navy-200 space-y-1">
-                                    <li>🇧🇪 Heel België</li>
-                                    <li>🇳🇱 Zuid-Nederland</li>
-                                    <li>🇫🇷 Noord-Frankrijk</li>
-                                    <li>🇱🇺 Luxemburg</li>
-                                </ul>
-                            </div>
-                            <div class="bg-white/10 backdrop-blur-sm rounded-xl p-4">
-                                <h4 class="font-semibold text-white mb-2 flex items-center gap-2">
-                                    <i data-lucide="sun" class="w-4 h-4 text-sun-400"></i>
-                                    Bestemmingen
-                                </h4>
-                                <ul class="text-sm text-navy-200 space-y-1">
-                                    <li>☀️ Costa Blanca</li>
-                                    <li>🏖️ Costa del Sol</li>
-                                    <li>🌴 Málaga regio</li>
-                                    <li>🇵🇹 Algarve</li>
-                                </ul>
-                            </div>
-                        </div>
+            <div class="grid md:grid-cols-4 gap-8">
+                <div class="text-center" data-aos="fade-up" data-aos-delay="100">
+                    <div class="w-20 h-20 bg-gradient-to-br from-azure-500 to-azure-600 rounded-full flex items-center justify-center mx-auto mb-6 text-3xl font-bold">
+                        1
                     </div>
+                    <h3 class="text-xl font-bold mb-2">Vraag Offerte</h3>
+                    <p class="text-gray-400">Gratis en vrijblijvend binnen 24 uur</p>
                 </div>
                 
-                <!-- Route Features -->
-                <div class="space-y-6 reveal-right">
-                    <div class="flex gap-5 items-start group">
-                        <div class="w-14 h-14 bg-gradient-to-br from-sun-400 to-sun-600 rounded-2xl flex items-center justify-center flex-shrink-0 shadow-lg group-hover:scale-110 transition-transform">
-                            <i data-lucide="calendar" class="w-7 h-7 text-navy-900"></i>
-                        </div>
-                        <div>
-                            <h3 class="font-display text-xl font-bold text-white mb-2">Wekelijkse Vertrekken</h3>
-                            <p class="text-navy-200">Vaste routes elke week. Geen wachten op een volle truck – betrouwbare planning waar u op kunt rekenen.</p>
-                        </div>
+                <div class="text-center" data-aos="fade-up" data-aos-delay="200">
+                    <div class="w-20 h-20 bg-gradient-to-br from-azure-500 to-azure-600 rounded-full flex items-center justify-center mx-auto mb-6 text-3xl font-bold">
+                        2
                     </div>
-                    
-                    <div class="flex gap-5 items-start group">
-                        <div class="w-14 h-14 bg-gradient-to-br from-sun-400 to-sun-600 rounded-2xl flex items-center justify-center flex-shrink-0 shadow-lg group-hover:scale-110 transition-transform">
-                            <i data-lucide="plane" class="w-7 h-7 text-navy-900"></i>
-                        </div>
-                        <div>
-                            <h3 class="font-display text-xl font-bold text-white mb-2">Airport Valet Service</h3>
-                            <p class="text-navy-200">Nieuw! Uw auto staat klaar bij aankomst op Málaga Airport. Vlieg comfortabel, rijd weg in uw eigen wagen.</p>
-                        </div>
+                    <h3 class="text-xl font-bold mb-2">Plan Transport</h3>
+                    <p class="text-gray-400">Kies ophaal- en leverdatum</p>
+                </div>
+                
+                <div class="text-center" data-aos="fade-up" data-aos-delay="300">
+                    <div class="w-20 h-20 bg-gradient-to-br from-azure-500 to-azure-600 rounded-full flex items-center justify-center mx-auto mb-6 text-3xl font-bold">
+                        3
                     </div>
-                    
-                    <div class="flex gap-5 items-start group">
-                        <div class="w-14 h-14 bg-gradient-to-br from-sun-400 to-sun-600 rounded-2xl flex items-center justify-center flex-shrink-0 shadow-lg group-hover:scale-110 transition-transform">
-                            <i data-lucide="timer" class="w-7 h-7 text-navy-900"></i>
-                        </div>
-                        <div>
-                            <h3 class="font-display text-xl font-bold text-white mb-2">3-5 Werkdagen</h3>
-                            <p class="text-navy-200">Snelle levertijd van ophaling tot bestemming. Exacte timing bij boeking – geen verrassingen.</p>
-                        </div>
+                    <h3 class="text-xl font-bold mb-2">Wij Rijden</h3>
+                    <p class="text-gray-400">Volg je auto real-time onderweg</p>
+                </div>
+                
+                <div class="text-center" data-aos="fade-up" data-aos-delay="400">
+                    <div class="w-20 h-20 bg-gradient-to-br from-sun-500 to-sun-600 rounded-full flex items-center justify-center mx-auto mb-6 text-3xl font-bold text-navy-950">
+                        4
                     </div>
-                    
-                    <div class="flex gap-5 items-start group">
-                        <div class="w-14 h-14 bg-gradient-to-br from-sun-400 to-sun-600 rounded-2xl flex items-center justify-center flex-shrink-0 shadow-lg group-hover:scale-110 transition-transform">
-                            <i data-lucide="smartphone" class="w-7 h-7 text-navy-900"></i>
-                        </div>
-                        <div>
-                            <h3 class="font-display text-xl font-bold text-white mb-2">Real-time Updates</h3>
-                            <p class="text-navy-200">Blijf op de hoogte via WhatsApp. Wij houden u geïnformeerd over elke stap van het transport.</p>
-                        </div>
-                    </div>
-                    
-                    <a href="#contact" class="inline-flex items-center gap-3 cta-btn text-navy-900 px-8 py-4 rounded-full font-semibold text-lg mt-4 group">
-                        <i data-lucide="send" class="w-5 h-5"></i>
-                        Plan Uw Transport
-                        <i data-lucide="arrow-right" class="w-5 h-5 group-hover:translate-x-1 transition-transform"></i>
-                    </a>
+                    <h3 class="text-xl font-bold mb-2">Geniet! 🌴</h3>
+                    <p class="text-gray-400">Je auto staat klaar bij aankomst</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ===== HOW IT WORKS ===== -->
-    <section id="hoe-het-werkt" class="py-24 bg-white relative">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-16 reveal">
-                <span class="inline-flex items-center gap-2 bg-ocean-100 text-ocean-600 px-4 py-2 rounded-full text-sm font-semibold mb-4">
-                    <i data-lucide="list-checks" class="w-4 h-4"></i>
-                    Simpel Proces
-                </span>
-                <h2 class="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-navy-900 mb-6">
-                    Hoe het <span class="text-gradient-ocean">werkt</span>
+    <!-- TESTIMONIALS -->
+    <section id="reviews" class="py-24 bg-gradient-to-b from-navy-900 to-navy-950">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4" data-aos="fade-up">
+                    Wat Klanten <span class="text-sun-400">Zeggen</span>
                 </h2>
-                <p class="text-xl text-navy-600 max-w-2xl mx-auto">
-                    In 4 eenvoudige stappen staat uw voertuig in de Spaanse zon
-                </p>
+                <div class="flex items-center justify-center gap-2 text-sun-400" data-aos="fade-up" data-aos-delay="100">
+                    <span>⭐⭐⭐⭐⭐</span>
+                    <span class="text-white font-bold">4.9/5</span>
+                    <span class="text-gray-400">op basis van 200+ reviews</span>
+                </div>
             </div>
             
-            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 relative">
-                <!-- Connection Line -->
-                <div class="hidden lg:block absolute top-24 left-1/4 right-1/4 h-1 bg-gradient-to-r from-sun-400 via-ocean-400 to-sun-400 rounded-full"></div>
-                
-                <!-- Step 1 -->
-                <div class="text-center reveal" style="transition-delay: 0.1s">
-                    <div class="relative inline-block mb-6">
-                        <div class="w-20 h-20 bg-gradient-to-br from-navy-800 to-navy-950 rounded-full flex items-center justify-center mx-auto relative z-10 shadow-xl">
-                            <span class="text-sun-400 font-display text-3xl font-bold">1</span>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="testimonial-card p-8 rounded-2xl" data-aos="fade-up" data-aos-delay="100">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="w-14 h-14 bg-azure-500 rounded-full flex items-center justify-center font-bold text-xl">
+                            JV
                         </div>
-                        <div class="absolute inset-0 bg-sun-400 rounded-full blur-xl opacity-20 animate-pulse"></div>
+                        <div>
+                            <div class="font-bold">Jan Vermeersch</div>
+                            <div class="text-sm text-gray-400">Gent → Málaga</div>
+                        </div>
                     </div>
-                    <h3 class="font-display text-xl font-bold text-navy-900 mb-3">Vraag Offerte</h3>
-                    <p class="text-navy-600">
-                        Vul ons formulier in of stuur een WhatsApp. Binnen 24 uur krijgt u een vrijblijvende prijs.
+                    <p class="text-gray-300 mb-4">
+                        "Fantastische service! Auto perfect afgeleverd in Málaga. De chauffeur was super vriendelijk en hield ons constant op de hoogte. Absolute aanrader!"
                     </p>
+                    <div class="text-sun-400">⭐⭐⭐⭐⭐</div>
                 </div>
                 
-                <!-- Step 2 -->
-                <div class="text-center reveal" style="transition-delay: 0.2s">
-                    <div class="relative inline-block mb-6">
-                        <div class="w-20 h-20 bg-gradient-to-br from-navy-800 to-navy-950 rounded-full flex items-center justify-center mx-auto relative z-10 shadow-xl">
-                            <span class="text-sun-400 font-display text-3xl font-bold">2</span>
+                <div class="testimonial-card p-8 rounded-2xl" data-aos="fade-up" data-aos-delay="200">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="w-14 h-14 bg-sun-500 rounded-full flex items-center justify-center font-bold text-xl text-navy-950">
+                            MD
                         </div>
-                        <div class="absolute inset-0 bg-sun-400 rounded-full blur-xl opacity-20 animate-pulse" style="animation-delay: 0.5s"></div>
+                        <div>
+                            <div class="font-bold">Marie Dubois</div>
+                            <div class="text-sm text-gray-400">Brussel → Alicante</div>
+                        </div>
                     </div>
-                    <h3 class="font-display text-xl font-bold text-navy-900 mb-3">Bevestig & Plan</h3>
-                    <p class="text-navy-600">
-                        Akkoord? Wij plannen de ophaling op een datum die u past. Flexibel en persoonlijk.
+                    <p class="text-gray-300 mb-4">
+                        "Al 3 keer gebruik gemaakt voor onze wintervakanties. Altijd punctueel, altijd perfect. We gaan nooit meer met een andere transporteur!"
                     </p>
+                    <div class="text-sun-400">⭐⭐⭐⭐⭐</div>
                 </div>
                 
-                <!-- Step 3 -->
-                <div class="text-center reveal" style="transition-delay: 0.3s">
-                    <div class="relative inline-block mb-6">
-                        <div class="w-20 h-20 bg-gradient-to-br from-navy-800 to-navy-950 rounded-full flex items-center justify-center mx-auto relative z-10 shadow-xl">
-                            <span class="text-sun-400 font-display text-3xl font-bold">3</span>
+                <div class="testimonial-card p-8 rounded-2xl" data-aos="fade-up" data-aos-delay="300">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="w-14 h-14 bg-green-500 rounded-full flex items-center justify-center font-bold text-xl">
+                            PJ
                         </div>
-                        <div class="absolute inset-0 bg-sun-400 rounded-full blur-xl opacity-20 animate-pulse" style="animation-delay: 1s"></div>
-                    </div>
-                    <h3 class="font-display text-xl font-bold text-navy-900 mb-3">Veilig Transport</h3>
-                    <p class="text-navy-600">
-                        Wij halen uw voertuig op en transporteren het 100% verzekerd naar de bestemming.
-                    </p>
-                </div>
-                
-                <!-- Step 4 -->
-                <div class="text-center reveal" style="transition-delay: 0.4s">
-                    <div class="relative inline-block mb-6">
-                        <div class="w-20 h-20 bg-gradient-to-br from-navy-800 to-navy-950 rounded-full flex items-center justify-center mx-auto relative z-10 shadow-xl">
-                            <span class="text-sun-400 font-display text-3xl font-bold">4</span>
+                        <div>
+                            <div class="font-bold">Pieter Janssens</div>
+                            <div class="text-sm text-gray-400">Antwerpen → Faro</div>
                         </div>
-                        <div class="absolute inset-0 bg-sun-400 rounded-full blur-xl opacity-20 animate-pulse" style="animation-delay: 1.5s"></div>
                     </div>
-                    <h3 class="font-display text-xl font-bold text-navy-900 mb-3">☀️ Genieten!</h3>
-                    <p class="text-navy-600">
-                        Uw auto staat klaar in Spanje of Portugal. Stap in en geniet van de zon!
+                    <p class="text-gray-300 mb-4">
+                        "Mijn oldtimer Mercedes als nieuw afgeleverd in Portugal. Zeer professionele aanpak. Prijs-kwaliteit top!"
                     </p>
+                    <div class="text-sun-400">⭐⭐⭐⭐⭐</div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ===== TESTIMONIALS SECTION ===== -->
-    <section id="reviews" class="py-24 bg-gradient-to-br from-navy-50 to-white relative overflow-hidden">
-        <div class="absolute top-0 right-0 w-96 h-96 bg-sun-400 rounded-full blur-[200px] opacity-10"></div>
-        
-        <div class="container mx-auto px-4 relative z-10">
-            <div class="text-center mb-16 reveal">
-                <span class="inline-flex items-center gap-2 bg-green-100 text-green-700 px-4 py-2 rounded-full text-sm font-semibold mb-4">
-                    <i data-lucide="star" class="w-4 h-4"></i>
-                    Tevreden Klanten
-                </span>
-                <h2 class="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-navy-900 mb-6">
-                    Wat klanten <span class="text-gradient-sun">zeggen</span>
-                </h2>
-            </div>
-            
-            <!-- Testimonials Slider -->
-            <div class="swiper testimonials-swiper reveal">
-                <div class="swiper-wrapper pb-12">
-                    <!-- Testimonial 1 -->
-                    <div class="swiper-slide">
-                        <div class="testimonial-card rounded-3xl p-8 h-full">
-                            <div class="flex text-sun-500 mb-4">
-                                <i data-lucide="star" class="w-5 h-5 fill-current"></i>
-                                <i data-lucide="star" class="w-5 h-5 fill-current"></i>
-                                <i data-lucide="star" class="w-5 h-5 fill-current"></i>
-                                <i data-lucide="star" class="w-5 h-5 fill-current"></i>
-                                <i data-lucide="star" class="w-5 h-5 fill-current"></i>
-                            </div>
-                            <p class="text-navy-700 mb-6 text-lg italic leading-relaxed">
-                                "Ongelooflijk goede service! Mijn BMW stond perfect in Málaga toen ik landde. De communicatie via WhatsApp was top. Geen moment stress gehad. Absolute aanrader!"
-                            </p>
-                            <div class="flex items-center gap-4">
-                                <div class="w-14 h-14 bg-gradient-to-br from-navy-700 to-navy-900 rounded-full flex items-center justify-center text-white font-bold">
-                                    PV
-                                </div>
-                                <div>
-                                    <div class="font-bold text-navy-900">Peter Vandenberghe</div>
-                                    <div class="text-sm text-navy-500 flex items-center gap-1">
-                                        <span>🇧🇪 Antwerpen</span>
-                                        <i data-lucide="arrow-right" class="w-3 h-3"></i>
-                                        <span>🇪🇸 Costa del Sol</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Testimonial 2 -->
-                    <div class="swiper-slide">
-                        <div class="testimonial-card rounded-3xl p-8 h-full">
-                            <div class="flex text-sun-500 mb-4">
-                                <i data-lucide="star" class="w-5 h-5 fill-current"></i>
-                                <i data-lucide="star" class="w-5 h-5 fill-current"></i>
-                                <i data-lucide="star" class="w-5 h-5 fill-current"></i>
-                                <i data-lucide="star" class="w-5 h-5 fill-current"></i>
-                                <i data-lucide="star" class="w-5 h-5 fill-current"></i>
-                            </div>
-                            <p class="text-navy-700 mb-6 text-lg italic leading-relaxed">
-                                "Al 4 jaar klant! Onze oldtimer Jaguar wordt elk seizoen netjes naar onze villa gebracht. De chauffeurs behandelen de auto alsof het hun eigen is. Topkwaliteit."
-                            </p>
-                            <div class="flex items-center gap-4">
-                                <div class="w-14 h-14 bg-gradient-to-br from-sun-500 to-sun-600 rounded-full flex items-center justify-center text-navy-900 font-bold">
-                                    MJ
-                                </div>
-                                <div>
-                                    <div class="font-bold text-navy-900">Marc & Julie Peeters</div>
-                                    <div class="text-sm text-navy-500 flex items-center gap-1">
-                                        <span>🇧🇪 Gent</span>
-                                        <i data-lucide="arrow-right" class="w-3 h-3"></i>
-                                        <span>🇵🇹 Algarve</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Testimonial 3 -->
-                    <div class="swiper-slide">
-                        <div class="testimonial-card rounded-3xl p-8 h-full">
-                            <div class="flex text-sun-500 mb-4">
-                                <i data-lucide="star" class="w-5 h-5 fill-current"></i>
-                                <i data-lucide="star" class="w-5 h-5 fill-current"></i>
-                                <i data-lucide="star" class="w-5 h-5 fill-current"></i>
-                                <i data-lucide="star" class="w-5 h-5 fill-current"></i>
-                                <i data-lucide="star" class="w-5 h-5 fill-current"></i>
-                            </div>
-                            <p class="text-navy-700 mb-6 text-lg italic leading-relaxed">
-                                "Als autohandelaar stuur ik regelmatig wagens naar klanten in Spanje. El Duque Trans is mijn vaste partner. Betrouwbaar, professioneel en altijd op tijd!"
-                            </p>
-                            <div class="flex items-center gap-4">
-                                <div class="w-14 h-14 bg-gradient-to-br from-ocean-500 to-ocean-600 rounded-full flex items-center justify-center text-white font-bold">
-                                    KD
-                                </div>
-                                <div>
-                                    <div class="font-bold text-navy-900">Karel De Wit</div>
-                                    <div class="text-sm text-navy-500">🚗 Autohandelaar, Brugge</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Testimonial 4 -->
-                    <div class="swiper-slide">
-                        <div class="testimonial-card rounded-3xl p-8 h-full">
-                            <div class="flex text-sun-500 mb-4">
-                                <i data-lucide="star" class="w-5 h-5 fill-current"></i>
-                                <i data-lucide="star" class="w-5 h-5 fill-current"></i>
-                                <i data-lucide="star" class="w-5 h-5 fill-current"></i>
-                                <i data-lucide="star" class="w-5 h-5 fill-current"></i>
-                                <i data-lucide="star" class="w-5 h-5 fill-current"></i>
-                            </div>
-                            <p class="text-navy-700 mb-6 text-lg italic leading-relaxed">
-                                "Mijn Porsche 911 naar Marbella - ik was zenuwachtig, maar alles verliep perfect. Gesloten transport, witte handschoenen service. Fantastisch bedrijf!"
-                            </p>
-                            <div class="flex items-center gap-4">
-                                <div class="w-14 h-14 bg-gradient-to-br from-navy-700 to-navy-900 rounded-full flex items-center justify-center text-white font-bold">
-                                    SL
-                                </div>
-                                <div>
-                                    <div class="font-bold text-navy-900">Sophie Lemaire</div>
-                                    <div class="text-sm text-navy-500 flex items-center gap-1">
-                                        <span>🇧🇪 Brussel</span>
-                                        <i data-lucide="arrow-right" class="w-3 h-3"></i>
-                                        <span>🇪🇸 Marbella</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="swiper-pagination"></div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ===== FAQ SECTION ===== -->
-    <section id="faq" class="py-24 bg-white">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-16 reveal">
-                <span class="inline-flex items-center gap-2 bg-navy-100 text-navy-700 px-4 py-2 rounded-full text-sm font-semibold mb-4">
-                    <i data-lucide="help-circle" class="w-4 h-4"></i>
-                    Veelgestelde Vragen
-                </span>
-                <h2 class="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-navy-900 mb-6">
-                    Nog vragen?
-                </h2>
-            </div>
-            
-            <div class="max-w-3xl mx-auto space-y-4 reveal">
-                <!-- FAQ 1 -->
-                <div class="faq-item bg-navy-50">
-                    <button class="w-full px-6 py-5 text-left flex items-center justify-between group" onclick="toggleFaq(this)">
-                        <span class="font-semibold text-navy-900 group-hover:text-sun-600 transition-colors">Hoeveel kost autotransport naar Spanje?</span>
-                        <i data-lucide="chevron-down" class="faq-icon w-5 h-5 text-navy-500"></i>
-                    </button>
-                    <div class="faq-content px-6 pb-5">
-                        <p class="text-navy-600 leading-relaxed">
-                            De prijs hangt af van het type voertuig, ophaaladres en exacte bestemming. Gemiddeld ligt de prijs tussen <strong>€600 en €1200</strong> voor een standaard personenwagen. Luxe en gesloten transport heeft een meerprijs. Vraag een gratis offerte aan voor uw exacte prijs – binnen 24 uur in uw inbox!
-                        </p>
-                    </div>
-                </div>
-                
-                <!-- FAQ 2 -->
-                <div class="faq-item bg-navy-50">
-                    <button class="w-full px-6 py-5 text-left flex items-center justify-between group" onclick="toggleFaq(this)">
-                        <span class="font-semibold text-navy-900 group-hover:text-sun-600 transition-colors">Hoe lang duurt het transport?</span>
-                        <i data-lucide="chevron-down" class="faq-icon w-5 h-5 text-navy-500"></i>
-                    </button>
-                    <div class="faq-content px-6 pb-5">
-                        <p class="text-navy-600 leading-relaxed">
-                            Typisch <strong>3-5 werkdagen</strong> vanaf ophaling tot levering, afhankelijk van de exacte bestemming. Wij rijden vaste routes en kunnen u een nauwkeurige planning geven bij boeking. U ontvangt updates via WhatsApp onderweg.
-                        </p>
-                    </div>
-                </div>
-                
-                <!-- FAQ 3 -->
-                <div class="faq-item bg-navy-50">
-                    <button class="w-full px-6 py-5 text-left flex items-center justify-between group" onclick="toggleFaq(this)">
-                        <span class="font-semibold text-navy-900 group-hover:text-sun-600 transition-colors">Is mijn voertuig verzekerd tijdens transport?</span>
-                        <i data-lucide="chevron-down" class="faq-icon w-5 h-5 text-navy-500"></i>
-                    </button>
-                    <div class="faq-content px-6 pb-5">
-                        <p class="text-navy-600 leading-relaxed">
-                            Ja, <strong>100% verzekerd</strong> volgens CMR-wetgeving. Uw voertuig is volledig gedekt tegen schade tijdens het transport. U ontvangt bij ophaling een inspectiedocument met foto's van de huidige staat. Extra verzekering voor luxevoertuigen is mogelijk.
-                        </p>
-                    </div>
-                </div>
-                
-                <!-- FAQ 4 -->
-                <div class="faq-item bg-navy-50">
-                    <button class="w-full px-6 py-5 text-left flex items-center justify-between group" onclick="toggleFaq(this)">
-                        <span class="font-semibold text-navy-900 group-hover:text-sun-600 transition-colors">Kan ik persoonlijke spullen in mijn auto laten?</span>
-                        <i data-lucide="chevron-down" class="faq-icon w-5 h-5 text-navy-500"></i>
-                    </button>
-                    <div class="faq-content px-6 pb-5">
-                        <p class="text-navy-600 leading-relaxed">
-                            Ja, een beperkte hoeveelheid persoonlijke bagage is toegestaan (max. <strong>20kg</strong>). Waardevolle items en gevaarlijke stoffen zijn niet toegelaten. Handig om wat vakantie-essentials mee te geven!
-                        </p>
-                    </div>
-                </div>
-                
-                <!-- FAQ 5 -->
-                <div class="faq-item bg-navy-50">
-                    <button class="w-full px-6 py-5 text-left flex items-center justify-between group" onclick="toggleFaq(this)">
-                        <span class="font-semibold text-navy-900 group-hover:text-sun-600 transition-colors">Rijden jullie ook naar Portugal?</span>
-                        <i data-lucide="chevron-down" class="faq-icon w-5 h-5 text-navy-500"></i>
-                    </button>
-                    <div class="faq-content px-6 pb-5">
-                        <p class="text-navy-600 leading-relaxed">
-                            Absoluut! Wij leveren in heel Spanje én <strong>Portugal</strong>, inclusief de populaire Algarve regio. Dezelfde service, dezelfde kwaliteit, dezelfde zon ☀️
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ===== CONTACT SECTION ===== -->
-    <section id="contact" class="py-24 bg-gradient-to-br from-navy-900 via-navy-800 to-navy-950 relative overflow-hidden">
-        <!-- Background Elements -->
-        <div class="absolute inset-0">
-            <div class="absolute top-0 left-0 w-full h-full bg-[url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=2000&q=80')] bg-cover bg-center opacity-10"></div>
-            <div class="absolute inset-0 bg-gradient-to-br from-navy-900/95 via-navy-800/90 to-navy-950/95"></div>
+    <!-- CTA SECTION -->
+    <section class="py-24 bg-gradient-to-r from-azure-600 via-azure-500 to-sun-500 relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10">
+            <svg class="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+                <pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse">
+                    <path d="M 10 0 L 0 0 0 10" fill="none" stroke="white" stroke-width="0.5"/>
+                </pattern>
+                <rect width="100" height="100" fill="url(#grid)"/>
+            </svg>
         </div>
         
-        <div class="container mx-auto px-4 relative z-10">
-            <div class="grid lg:grid-cols-2 gap-12 items-center">
-                <!-- Left - Info -->
-                <div class="reveal-left">
-                    <span class="inline-flex items-center gap-2 bg-sun-500/20 text-sun-400 px-4 py-2 rounded-full text-sm font-semibold mb-6">
-                        <i data-lucide="sparkles" class="w-4 h-4"></i>
-                        Gratis Offerte
-                    </span>
-                    <h2 class="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
-                        Klaar voor de
-                        <span class="text-gradient-sun">Spaanse zon?</span>
+        <div class="max-w-4xl mx-auto px-6 text-center relative z-10">
+            <h2 class="text-4xl md:text-6xl font-bold mb-6 text-navy-950" data-aos="fade-up">
+                Klaar voor de Zon? ☀️
+            </h2>
+            <p class="text-xl text-navy-800 mb-8 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="100">
+                Vraag vandaag nog je gratis offerte aan en rij binnen 2 weken met je eigen auto door Spanje!
+            </p>
+            <a href="#contact" class="btn-glow inline-flex items-center gap-3 bg-navy-950 text-white px-10 py-5 rounded-full font-bold text-xl" data-aos="zoom-in" data-aos-delay="200">
+                <span>Gratis Offerte Aanvragen</span>
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                </svg>
+            </a>
+        </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section id="contact" class="py-24 bg-navy-950">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid lg:grid-cols-2 gap-16">
+                <div data-aos="fade-right">
+                    <h2 class="text-4xl md:text-5xl font-bold mb-6">
+                        Neem <span class="text-azure-400">Contact</span> Op
                     </h2>
-                    <p class="text-xl text-navy-200 mb-8 leading-relaxed">
-                        Ontvang binnen 24 uur een vrijblijvende offerte. Vul het formulier in of neem direct contact op via WhatsApp.
+                    <p class="text-xl text-gray-400 mb-8">
+                        Vragen? Offerte nodig? Wij staan voor je klaar!
                     </p>
                     
-                    <div class="space-y-4 mb-8">
-                        <a href="https://wa.me/34600000000" class="flex items-center gap-4 bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/10 hover:bg-white/20 transition-colors group">
+                    <div class="space-y-6">
+                        <a href="tel:+32470123456" class="flex items-center gap-4 p-4 bg-white/5 rounded-xl hover:bg-white/10 transition-all">
+                            <div class="w-12 h-12 bg-azure-500 rounded-xl flex items-center justify-center">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <div class="font-bold">Telefoon</div>
+                                <div class="text-azure-400">+32 470 12 34 56</div>
+                            </div>
+                        </a>
+                        
+                        <a href="mailto:info@elduquetrans.be" class="flex items-center gap-4 p-4 bg-white/5 rounded-xl hover:bg-white/10 transition-all">
+                            <div class="w-12 h-12 bg-sun-500 rounded-xl flex items-center justify-center text-navy-950">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <div class="font-bold">Email</div>
+                                <div class="text-sun-400">info@elduquetrans.be</div>
+                            </div>
+                        </a>
+                        
+                        <a href="https://wa.me/32470123456" class="flex items-center gap-4 p-4 bg-white/5 rounded-xl hover:bg-white/10 transition-all">
                             <div class="w-12 h-12 bg-green-500 rounded-xl flex items-center justify-center">
-                                <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                                </svg>
                             </div>
                             <div>
-                                <div class="font-semibold text-white">WhatsApp</div>
-                                <div class="text-navy-300">+34 600 000 000</div>
+                                <div class="font-bold">WhatsApp</div>
+                                <div class="text-green-400">Direct chatten</div>
                             </div>
-                            <i data-lucide="arrow-right" class="w-5 h-5 text-white/50 ml-auto group-hover:translate-x-1 transition-transform"></i>
-                        </a>
-                        
-                        <a href="tel:+34600000000" class="flex items-center gap-4 bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/10 hover:bg-white/20 transition-colors group">
-                            <div class="w-12 h-12 bg-ocean-500 rounded-xl flex items-center justify-center">
-                                <i data-lucide="phone" class="w-6 h-6 text-white"></i>
-                            </div>
-                            <div>
-                                <div class="font-semibold text-white">Telefoon</div>
-                                <div class="text-navy-300">+34 600 000 000</div>
-                            </div>
-                            <i data-lucide="arrow-right" class="w-5 h-5 text-white/50 ml-auto group-hover:translate-x-1 transition-transform"></i>
-                        </a>
-                        
-                        <a href="mailto:info@elduquetrans.be" class="flex items-center gap-4 bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/10 hover:bg-white/20 transition-colors group">
-                            <div class="w-12 h-12 bg-sun-500 rounded-xl flex items-center justify-center">
-                                <i data-lucide="mail" class="w-6 h-6 text-navy-900"></i>
-                            </div>
-                            <div>
-                                <div class="font-semibold text-white">E-mail</div>
-                                <div class="text-navy-300">info@elduquetrans.be</div>
-                            </div>
-                            <i data-lucide="arrow-right" class="w-5 h-5 text-white/50 ml-auto group-hover:translate-x-1 transition-transform"></i>
                         </a>
                     </div>
                 </div>
                 
-                <!-- Right - Form -->
-                <div class="reveal-right">
-                    <form class="bg-white rounded-3xl p-8 shadow-2xl">
-                        <h3 class="font-display text-2xl font-bold text-navy-900 mb-6">Vraag uw offerte aan</h3>
-                        
-                        <div class="space-y-5">
-                            <div class="grid md:grid-cols-2 gap-5">
-                                <div>
-                                    <label class="block text-sm font-medium text-navy-700 mb-2">Naam *</label>
-                                    <input type="text" required class="form-input w-full px-4 py-3 bg-navy-50 rounded-xl focus:outline-none" placeholder="Uw naam">
-                                </div>
-                                <div>
-                                    <label class="block text-sm font-medium text-navy-700 mb-2">Telefoon *</label>
-                                    <input type="tel" required class="form-input w-full px-4 py-3 bg-navy-50 rounded-xl focus:outline-none" placeholder="+32 ...">
-                                </div>
-                            </div>
-                            
-                            <div>
-                                <label class="block text-sm font-medium text-navy-700 mb-2">E-mail *</label>
-                                <input type="email" required class="form-input w-full px-4 py-3 bg-navy-50 rounded-xl focus:outline-none" placeholder="uw@email.be">
-                            </div>
-                            
-                            <div class="grid md:grid-cols-2 gap-5">
-                                <div>
-                                    <label class="block text-sm font-medium text-navy-700 mb-2">Ophaaladres</label>
-                                    <input type="text" class="form-input w-full px-4 py-3 bg-navy-50 rounded-xl focus:outline-none" placeholder="Stad/gemeente">
-                                </div>
-                                <div>
-                                    <label class="block text-sm font-medium text-navy-700 mb-2">Bestemming</label>
-                                    <select class="form-input w-full px-4 py-3 bg-navy-50 rounded-xl focus:outline-none">
-                                        <option>Costa del Sol</option>
-                                        <option>Costa Blanca</option>
-                                        <option>Málaga</option>
-                                        <option>Marbella</option>
-                                        <option>Alicante</option>
-                                        <option>Valencia</option>
-                                        <option>Barcelona</option>
-                                        <option>Algarve (Portugal)</option>
-                                        <option>Andere</option>
-                                    </select>
-                                </div>
-                            </div>
-                            
-                            <div>
-                                <label class="block text-sm font-medium text-navy-700 mb-2">Type voertuig</label>
-                                <select class="form-input w-full px-4 py-3 bg-navy-50 rounded-xl focus:outline-none">
-                                    <option>Personenwagen</option>
-                                    <option>Luxe / Supercar</option>
-                                    <option>Oldtimer / Classic</option>
-                                    <option>Motor / Scooter</option>
-                                    <option>Boot / Jetski</option>
-                                    <option>Ander voertuig</option>
-                                </select>
-                            </div>
-                            
-                            <div>
-                                <label class="block text-sm font-medium text-navy-700 mb-2">Extra informatie</label>
-                                <textarea rows="3" class="form-input w-full px-4 py-3 bg-navy-50 rounded-xl focus:outline-none resize-none" placeholder="Merk, model, gewenste datum..."></textarea>
-                            </div>
-                            
-                            <button type="submit" class="w-full cta-btn text-navy-900 px-8 py-4 rounded-xl font-semibold text-lg flex items-center justify-center gap-2 group">
-                                <i data-lucide="send" class="w-5 h-5 group-hover:translate-x-1 transition-transform"></i>
-                                Verstuur Aanvraag
-                            </button>
-                            
-                            <p class="text-sm text-navy-500 text-center">
-                                🔒 Uw gegevens worden veilig verwerkt en nooit gedeeld.
-                            </p>
+                <!-- Contact Form -->
+                <div class="gradient-border p-8" data-aos="fade-left">
+                    <h3 class="text-2xl font-bold mb-6">Vraag Direct Offerte Aan</h3>
+                    <form class="space-y-4">
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <input type="text" placeholder="Naam" class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:border-azure-500 focus:outline-none transition-all">
+                            <input type="email" placeholder="Email" class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:border-azure-500 focus:outline-none transition-all">
                         </div>
+                        <input type="tel" placeholder="Telefoon" class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:border-azure-500 focus:outline-none transition-all">
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <input type="text" placeholder="Van (stad)" class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:border-azure-500 focus:outline-none transition-all">
+                            <input type="text" placeholder="Naar (stad)" class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:border-azure-500 focus:outline-none transition-all">
+                        </div>
+                        <select class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:border-azure-500 focus:outline-none transition-all text-gray-400">
+                            <option value="">Type voertuig</option>
+                            <option value="auto">Personenauto</option>
+                            <option value="suv">SUV / 4x4</option>
+                            <option value="luxe">Luxewagen</option>
+                            <option value="oldtimer">Oldtimer</option>
+                            <option value="motor">Motor</option>
+                            <option value="anders">Anders</option>
+                        </select>
+                        <textarea placeholder="Extra informatie..." rows="3" class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:border-azure-500 focus:outline-none transition-all"></textarea>
+                        <button type="submit" class="btn-glow w-full bg-gradient-to-r from-azure-500 to-azure-600 py-4 rounded-xl font-bold text-lg">
+                            Verstuur Aanvraag
+                        </button>
                     </form>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ===== FOOTER ===== -->
-    <footer class="bg-navy-950 text-white py-16">
-        <div class="container mx-auto px-4">
-            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
-                <!-- Brand -->
-                <div>
-                    <div class="flex items-center gap-3 mb-6">
-                        <div class="w-12 h-12 bg-gradient-to-br from-navy-700 to-navy-900 rounded-xl flex items-center justify-center">
-                            <span class="text-sun-400 font-display font-bold text-xl">ED</span>
-                        </div>
-                        <div>
-                            <div class="font-display font-bold text-xl">El Duque Trans</div>
-                            <div class="text-xs text-navy-400">Premium Car Transport</div>
-                        </div>
+    <!-- FOOTER -->
+    <footer class="py-12 bg-navy-950 border-t border-white/10">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-gradient-to-br from-azure-500 to-azure-600 rounded-xl flex items-center justify-center">
+                        <span class="font-bold">ED</span>
                     </div>
-                    <p class="text-navy-300 mb-4">
-                        België's #1 autotransport naar Spanje en Portugal. 15+ jaar ervaring, 100% verzekerd, persoonlijke Belgische service.
-                    </p>
-                    <div class="flex gap-3">
-                        <a href="#" class="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center hover:bg-sun-500 transition-colors">
-                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/></svg>
-                        </a>
-                        <a href="#" class="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center hover:bg-sun-500 transition-colors">
-                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.162-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.401.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.354-.629-2.758-1.379l-.749 2.848c-.269 1.045-1.004 2.352-1.498 3.146 1.123.345 2.306.535 3.55.535 6.607 0 11.985-5.365 11.985-11.987C23.97 5.39 18.592.026 11.985.026L12.017 0z"/></svg>
-                        </a>
-                        <a href="#" class="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center hover:bg-sun-500 transition-colors">
-                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
-                        </a>
+                    <div>
+                        <div class="font-bold">El Duque Trans</div>
+                        <div class="text-xs text-gray-400">Premium Autotransport</div>
                     </div>
                 </div>
                 
-                <!-- Quick Links -->
-                <div>
-                    <h4 class="font-display font-bold text-lg mb-6">Snelle Links</h4>
-                    <ul class="space-y-3">
-                        <li><a href="#diensten" class="text-navy-300 hover:text-sun-400 transition-colors">Onze Diensten</a></li>
-                        <li><a href="#routes" class="text-navy-300 hover:text-sun-400 transition-colors">Routes & Bestemmingen</a></li>
-                        <li><a href="#hoe-het-werkt" class="text-navy-300 hover:text-sun-400 transition-colors">Hoe het werkt</a></li>
-                        <li><a href="#reviews" class="text-navy-300 hover:text-sun-400 transition-colors">Klantenreviews</a></li>
-                        <li><a href="#faq" class="text-navy-300 hover:text-sun-400 transition-colors">Veelgestelde vragen</a></li>
-                        <li><a href="#contact" class="text-navy-300 hover:text-sun-400 transition-colors">Contact & Offerte</a></li>
-                    </ul>
+                <div class="flex items-center gap-6 text-gray-400">
+                    <span>🇧🇪 België</span>
+                    <span>→</span>
+                    <span>🇪🇸 Spanje</span>
+                    <span>🇵🇹 Portugal</span>
                 </div>
                 
-                <!-- Destinations -->
-                <div>
-                    <h4 class="font-display font-bold text-lg mb-6">Bestemmingen</h4>
-                    <ul class="space-y-3">
-                        <li class="text-navy-300">🇪🇸 Costa del Sol</li>
-                        <li class="text-navy-300">🇪🇸 Costa Blanca</li>
-                        <li class="text-navy-300">🇪🇸 Málaga & Marbella</li>
-                        <li class="text-navy-300">🇪🇸 Alicante & Valencia</li>
-                        <li class="text-navy-300">🇪🇸 Barcelona</li>
-                        <li class="text-navy-300">🇵🇹 Algarve</li>
-                    </ul>
-                </div>
-                
-                <!-- Contact -->
-                <div>
-                    <h4 class="font-display font-bold text-lg mb-6">Contact</h4>
-                    <ul class="space-y-4">
-                        <li class="flex items-center gap-3">
-                            <i data-lucide="phone" class="w-5 h-5 text-sun-400"></i>
-                            <a href="tel:+34600000000" class="text-navy-300 hover:text-sun-400 transition-colors">+34 600 000 000</a>
-                        </li>
-                        <li class="flex items-center gap-3">
-                            <svg class="w-5 h-5 text-green-400" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-                            <a href="https://wa.me/34600000000" class="text-navy-300 hover:text-green-400 transition-colors">WhatsApp</a>
-                        </li>
-                        <li class="flex items-center gap-3">
-                            <i data-lucide="mail" class="w-5 h-5 text-sun-400"></i>
-                            <a href="mailto:info@elduquetrans.be" class="text-navy-300 hover:text-sun-400 transition-colors">info@elduquetrans.be</a>
-                        </li>
-                        <li class="flex items-start gap-3">
-                            <i data-lucide="map-pin" class="w-5 h-5 text-sun-400 mt-1"></i>
-                            <span class="text-navy-300">België & Spanje<br>Benelux ↔ Iberisch Schiereiland</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            
-            <!-- Bottom Bar -->
-            <div class="border-t border-navy-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-                <p class="text-navy-400 text-sm">
-                    © 2024 El Duque Trans. Alle rechten voorbehouden.
-                </p>
-                <div class="flex items-center gap-6 text-sm">
-                    <a href="#" class="text-navy-400 hover:text-sun-400 transition-colors">Privacybeleid</a>
-                    <a href="#" class="text-navy-400 hover:text-sun-400 transition-colors">Algemene voorwaarden</a>
+                <div class="text-gray-400 text-sm">
+                    © 2026 El Duque Trans. Alle rechten voorbehouden.
                 </div>
             </div>
         </div>
     </footer>
 
-    <!-- WHATSAPP FLOATING BUTTON -->
-    <a href="https://wa.me/34600000000" class="whatsapp-btn" target="_blank" title="Chat via WhatsApp">
-        <svg class="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-        </svg>
-    </a>
-
-    <!-- SCRIPTS -->
     <script>
-        // ===== LOADING SCREEN =====
+        // Initialize AOS
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 100
+        });
+        
+        // Loader
         window.addEventListener('load', () => {
             setTimeout(() => {
                 document.getElementById('loader').classList.add('hidden');
             }, 1500);
         });
-
-        // ===== INITIALIZE LUCIDE ICONS =====
-        lucide.createIcons();
-
-        // ===== MOBILE MENU =====
-        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
         
-        mobileMenuBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
-
-        // Close mobile menu when clicking a link
-        mobileMenu.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.add('hidden');
-            });
-        });
-
-        // ===== NAVBAR SCROLL EFFECT =====
-        const navbar = document.getElementById('navbar');
+        // Navbar scroll effect
         window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
             if (window.scrollY > 50) {
-                navbar.classList.add('scrolled');
+                navbar.classList.add('bg-navy-950/90', 'backdrop-blur-lg', 'shadow-lg');
             } else {
-                navbar.classList.remove('scrolled');
+                navbar.classList.remove('bg-navy-950/90', 'backdrop-blur-lg', 'shadow-lg');
             }
         });
-
-        // ===== GSAP ANIMATIONS =====
-        gsap.registerPlugin(ScrollTrigger);
-
-        // Hero animations
-        gsap.from('.hero-title', {
-            opacity: 0,
-            y: 100,
-            duration: 1.2,
-            ease: 'power4.out',
-            delay: 1.8
-        });
-
-        gsap.from('.hero-subtitle', {
-            opacity: 0,
-            y: 50,
-            duration: 1,
-            ease: 'power3.out',
-            delay: 2.2
-        });
-
-        gsap.from('.hero-cta', {
-            opacity: 0,
-            y: 30,
-            duration: 0.8,
-            ease: 'power2.out',
-            delay: 2.5
-        });
-
-        gsap.from('.hero-stats', {
-            opacity: 0,
-            y: 30,
-            duration: 0.8,
-            ease: 'power2.out',
-            delay: 2.8
-        });
-
-        gsap.from('.hero-image', {
-            opacity: 0,
-            x: 100,
-            duration: 1.2,
-            ease: 'power4.out',
-            delay: 2
-        });
-
-        // ===== SCROLL REVEAL ANIMATIONS =====
-        const reveals = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
         
-        const revealObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                }
-            });
-        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-
-        reveals.forEach(el => revealObserver.observe(el));
-
-        // ===== COUNTER ANIMATION =====
+        // Counter animation
         const counters = document.querySelectorAll('.counter');
+        const observerOptions = { threshold: 0.5 };
         
         const counterObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     const counter = entry.target;
                     const target = parseInt(counter.dataset.target);
+                    const duration = 2000;
+                    const increment = target / (duration / 16);
+                    let current = 0;
                     
-                    gsap.to(counter, {
-                        innerHTML: target,
-                        duration: 2,
-                        ease: 'power2.out',
-                        snap: { innerHTML: 1 },
-                        onUpdate: function() {
-                            counter.innerHTML = Math.ceil(this.targets()[0].innerHTML);
+                    const updateCounter = () => {
+                        current += increment;
+                        if (current < target) {
+                            counter.textContent = Math.floor(current) + '+';
+                            requestAnimationFrame(updateCounter);
+                        } else {
+                            counter.textContent = target + '+';
                         }
-                    });
+                    };
                     
+                    updateCounter();
                     counterObserver.unobserve(counter);
                 }
             });
-        }, { threshold: 0.5 });
-
+        }, observerOptions);
+        
         counters.forEach(counter => counterObserver.observe(counter));
-
-        // ===== ROUTE PATH ANIMATION =====
-        const routePath = document.querySelector('.route-path');
-        if (routePath) {
-            ScrollTrigger.create({
-                trigger: '#routes',
-                start: 'top 80%',
-                onEnter: () => routePath.classList.add('animate')
+        
+        // Particles.js
+        if (typeof particlesJS !== 'undefined') {
+            particlesJS('particles-js', {
+                particles: {
+                    number: { value: 50, density: { enable: true, value_area: 800 } },
+                    color: { value: '#2196f3' },
+                    shape: { type: 'circle' },
+                    opacity: { value: 0.3, random: true },
+                    size: { value: 3, random: true },
+                    line_linked: { enable: true, distance: 150, color: '#2196f3', opacity: 0.1, width: 1 },
+                    move: { enable: true, speed: 1, direction: 'none', random: true, out_mode: 'out' }
+                },
+                interactivity: {
+                    detect_on: 'canvas',
+                    events: { onhover: { enable: true, mode: 'grab' }, resize: true },
+                    modes: { grab: { distance: 140, line_linked: { opacity: 0.3 } } }
+                },
+                retina_detect: true
             });
         }
-
-        // ===== TESTIMONIALS SWIPER =====
-        new Swiper('.testimonials-swiper', {
-            slidesPerView: 1,
-            spaceBetween: 30,
-            loop: true,
-            autoplay: {
-                delay: 5000,
-                disableOnInteraction: false,
-            },
-            pagination: {
-                el: '.swiper-pagination',
-                clickable: true,
-            },
-            breakpoints: {
-                640: {
-                    slidesPerView: 2,
-                },
-                1024: {
-                    slidesPerView: 3,
-                },
-            }
-        });
-
-        // ===== FAQ ACCORDION =====
-        function toggleFaq(button) {
-            const content = button.nextElementSibling;
-            const icon = button.querySelector('.faq-icon');
-            const isOpen = content.classList.contains('open');
-            
-            // Close all other FAQs
-            document.querySelectorAll('.faq-content').forEach(c => c.classList.remove('open'));
-            document.querySelectorAll('.faq-icon').forEach(i => i.classList.remove('open'));
-            
-            if (!isOpen) {
-                content.classList.add('open');
-                icon.classList.add('open');
-            }
-        }
-
-        // ===== SMOOTH SCROLL =====
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-
-        // ===== PARALLAX EFFECT =====
-        gsap.to('.orb-1', {
-            y: -100,
-            scrollTrigger: {
-                trigger: '.hero-gradient',
-                start: 'top top',
-                end: 'bottom top',
-                scrub: 1
-            }
-        });
-
-        gsap.to('.orb-2', {
-            y: -150,
-            scrollTrigger: {
-                trigger: '.hero-gradient',
-                start: 'top top',
-                end: 'bottom top',
-                scrub: 1
-            }
-        });
-
-        // ===== 3D TILT EFFECT ON SERVICE CARDS =====
-        document.querySelectorAll('.card-3d').forEach(card => {
-            card.addEventListener('mousemove', e => {
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                const centerX = rect.width / 2;
-                const centerY = rect.height / 2;
-                const rotateX = (y - centerY) / 20;
-                const rotateY = (centerX - x) / 20;
-                
-                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(10px)`;
-            });
-            
-            card.addEventListener('mouseleave', () => {
-                card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateZ(0)';
-            });
-        });
-
-        // ===== IMAGE REVEAL ON SCROLL =====
-        const imageReveals = document.querySelectorAll('.image-reveal');
-        const imageObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('revealed');
-                }
-            });
-        }, { threshold: 0.3 });
-
-        imageReveals.forEach(img => imageObserver.observe(img));
     </script>
 </body>
 </html>
